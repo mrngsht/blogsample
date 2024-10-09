@@ -1,0 +1,35 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getNewsPosts, getNewsPost } from "../../microcms";
+
+// 詳細記事ページの全パスを取得
+export async function getStaticPaths() {
+  const response = await getNewsPosts({ fields: ["id"] });
+  return response.contents.map((content) => ({
+    params: {
+      newsId: content.id,
+    },
+  }));
+}
+
+//記事の詳細情報を取得
+const { newsId } = Astro.params;
+const news = await getNewsPost(newsId as string);
+---
+
+<Layout title="news | Sample Web">
+  <main>
+    <h1 class="title">{news.title}</h1>
+    <p class="publishedAt">公開日時：{news.publishedAt}</p>
+    <img src={news.thumbnail.url} alt={news.title} width="200" height="200" />
+    <div class="post" set:html={news.content}></div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    margin: auto;
+    padding: 1em;
+    max-width: 60ch;
+  }
+</style>
