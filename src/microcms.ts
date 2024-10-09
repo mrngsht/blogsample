@@ -1,7 +1,6 @@
 import type { MicroCMSQueries } from "microcms-js-sdk";
 import { createClient } from "microcms-js-sdk";
 import { preloadImage } from "./preload_image";
-import {Mutex} from 'await-semaphore';
 
 const client = createClient({
   serviceDomain: import.meta.env.MICROCMS_SERVICE_DOMAIN,
@@ -27,31 +26,25 @@ export type NewsResponse = {
   contents: NewsPost[];
 };
 
-var mutex = new Mutex();
-var newsStore: NewsPost[] = []
-var newsStored = false
-
-export const getNewsPosts = async (queries?: MicroCMSQueries): Promise<NewsPost[]> => {
-  console.log("getNewsPosts called")
-  mutex.use(async () => {
-    if (!newsStored) {
-      console.log("getNewsPosts filling")
-      const news = await client.get<NewsResponse>({ endpoint: "news", queries });
-      for (const c of news.contents) {
-        c.thumbnail.url = await preloadImage(c.thumbnail.url)
-      }
-      newsStore = news.contents
-      newsStored = true
-    }
-  })
-  return newsStore
+export const getNewsPosts = async (queries?: MicroCMSQueries): Promise<NewsResponse> => {
+  const res = await client.get<NewsResponse>({ endpoint: "news", queries });
+  await Promise.all(res.contents.map(preloadAndReplaceImageUrl))
+  return res
 }
 
-
 export const getNewsPost = async (
-  contentId: string
+  contentId: string,
+  queries?: MicroCMSQueries
 ): Promise<NewsPost> => {
-  const posts = await getNewsPosts()
-  return posts.filter(x => x.id == contentId)[0]
+  const res = await client.getListDetail<NewsPost>({
+    endpoint: "news",
+    contentId,
+    queries,
+  });
+  await preloadAndReplaceImageUrl(res)
+  return res
 };
 
+const preloadAndReplaceImageUrl = async (post: NewsPost) => {
+  post.thumbnail.url = await preloadImage(post.thumbnail.url)
+}

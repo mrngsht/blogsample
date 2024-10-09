@@ -4,10 +4,10 @@ import { getNewsPosts, getNewsPost } from "../../microcms";
 
 // 詳細記事ページの全パスを取得
 export async function getStaticPaths() {
-  const posts = await getNewsPosts();
-  return posts.map(post => ({
+  const res = await getNewsPosts();
+  return res.contents.map(content => ({
     params: {
-      newsId: post.id,
+      newsId: content.id,
     },
   }));
 }

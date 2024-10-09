@@ -3,17 +3,17 @@ import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import { getNewsPosts } from "../microcms";
 
-const posts = await getNewsPosts();
+const res = await getNewsPosts();
 ---
 
 <Layout title="Sample Web">
   <main>
     <ul>
       {
-        posts.map(post => (
+        res.contents.map(content => (
           <li>
-            <Image src={post.thumbnail.url} alt={post.title} width={200} height={200} />
-            <a href={"news/"+post.id}>{post.title}</a>
+            <Image src={content.thumbnail.url} alt={content.title} width={200} height={200} />
+            <a href={"news/"+content.id}>{content.title}</a>
           </li>
         ))
       }
