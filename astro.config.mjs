@@ -1,5 +1,8 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import preload from './src/preload'
 
 // https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+   integrations: [preload()]
+});
