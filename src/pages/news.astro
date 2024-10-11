@@ -1,0 +1,32 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import { getNewsPosts } from "../microcms";
+
+const res = await getNewsPosts();
+---
+
+<Layout title="news | sample Web">
+  <main>
+    <h1 class="title">news</h1>
+    <ul>
+      {
+        res.contents.map(content => (
+          <li>
+            <Image src={content.thumbnail.url} alt={content.title} width={200} height={200} />
+            <a href={"news/"+content.id}>{content.title}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Layout>
+
+<style>
+  main {
+    margin: auto;
+    padding: 1em;
+    max-width: 60ch;
+  }
+</style>
+

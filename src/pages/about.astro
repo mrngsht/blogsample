@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+---
+
+<Layout title="about | Sample Web">
+  <main>
+    <h1 class="title">about</h1>
+    <!-- <div class="post" set:html={news.content}></div> -->
+  </main>
+</Layout>
+
+<style>
+  main {
+    margin: auto;
+    padding: 1em;
+    max-width: 60ch;
+  }
+  .post {
+    figure {
+      margin-inline: auto;
+    }
+    img {
+      max-width: 60ch;
+      height: auto;
+    }
+  }
+</style>
