@@ -11,10 +11,10 @@ const res = await getNewsPosts();
     <h1 class="title">news</h1>
     <ul>
       {
-        res.contents.map(content => (
+        res.contents.map(x => (
           <li>
-            <Image src={content.thumbnail.url} alt={content.title} width={200} height={200} />
-            <a href={"news/"+content.id}>{content.title}</a>
+            <Image class="thumbnail" src={x.thumbnail.url} alt={x.title} width={x.thumbnail.width} height={x.thumbnail.height} />
+            <a href={"news/"+x.id}>{x.title}</a>
           </li>
         ))
       }
@@ -27,6 +27,10 @@ const res = await getNewsPosts();
     margin: auto;
     padding: 1em;
     max-width: 60ch;
+  }
+  .thumbnail {
+    width: 10ch;
+    height: auto;
   }
 </style>
 

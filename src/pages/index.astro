@@ -1,12 +1,23 @@
 ---
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
-import { getNewsPosts } from "../microcms";
+import { getTopImages } from "../microcms";
 
+const res = await getTopImages()
 ---
 
 <Layout title="Sample Web">
   <main>
+    <h1 class="title">AMAM+</h1>
+
+    <div>
+      {
+        res.topImages.map(x => (
+          <Image class="top-image" src={x.url} alt="top image" width={x.width} height={x.height} />
+        ))
+      }
+    </div>
+
     <ul>
       <li>
         <a href="news">news</a>
@@ -29,5 +40,9 @@ import { getNewsPosts } from "../microcms";
     margin: auto;
     padding: 1em;
     max-width: 60ch;
+  }
+  .top-image {
+    width: 100%;
+    height: auto;
   }
 </style>

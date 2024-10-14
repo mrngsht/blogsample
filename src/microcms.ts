@@ -26,11 +26,13 @@ export const getNewsPosts = async (): Promise<NewsResponse> => {
     endpoint: "news", 
     queries: {fields: ["id", "publishedAt", "title", "thumbnail"]},
   });
-  await Promise.all(res.contents.map(preloadAndReplaceImageUrl))
+  await Promise.all(res.contents.map(async x => {
+    x.thumbnail.url = await preloadImage(x.thumbnail.url)
+  }))
   return res
 }
 
-export type NewsPostDetail = {
+export type NewsPostDetailResponse = {
   id: string;
   publishedAt: string;
   title: string;
@@ -38,13 +40,13 @@ export type NewsPostDetail = {
   content: string;
 };
 
-export const getNewsPost = async (contentId: string): Promise<NewsPostDetail> => {
-  const res = await client.getListDetail<NewsPostDetail>({
+export const getNewsPost = async (contentId: string): Promise<NewsPostDetailResponse> => {
+  const res = await client.getListDetail<NewsPostDetailResponse>({
     endpoint: "news",
     contentId,
     queries: {fields: ["id", "publishedAt", "title", "thumbnail", "content"]},
   });
-  await preloadAndReplaceImageUrl(res)
+  res.thumbnail.url = await preloadImage(res.thumbnail.url)
   const dom = new JSDOM(res.content)
   for (const x of dom.window.document.querySelectorAll("img")) {
      const imgsrc = x.getAttribute("src")
@@ -56,8 +58,39 @@ export const getNewsPost = async (contentId: string): Promise<NewsPostDetail> =>
   return res
 };
 
-const preloadAndReplaceImageUrl = async (post: {thumbnail: CmsImage}) => {
-  post.thumbnail.url = await preloadImage(post.thumbnail.url)
+export type AboutResponse = {
+  about: string;
+};
+
+export const getAbout = async (): Promise<AboutResponse> => {
+  const res = await client.get<AboutResponse>({ 
+    endpoint: "others", 
+    queries: {fields: ["about"]},
+  });
+  const dom = new JSDOM(res.about)
+  for (const x of dom.window.document.querySelectorAll("img")) {
+     const imgsrc = x.getAttribute("src")
+     if (imgsrc) {
+       x.setAttribute("src",  await preloadImage(imgsrc))
+     }
+  }
+  res.about = dom.serialize()
+  return res
+}
+
+export type TopImagesResponse = {
+  topImages: CmsImage[];
+};
+
+export const getTopImages = async (): Promise<TopImagesResponse> => {
+  const res = await client.get<TopImagesResponse>({ 
+    endpoint: "others", 
+    queries: {fields: ["topImages"]},
+  });
+  await Promise.all(res.topImages.map(async x => {
+    x.url = await preloadImage(x.url)
+  }))
+  return res
 }
 
 export type CmsImage = {

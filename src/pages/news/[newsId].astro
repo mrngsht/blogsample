@@ -22,7 +22,7 @@ const news = await getNewsPost(newsId as string);
     <h1 class="title">{news.title}</h1>
     <p class="publishedAt">公開日時：{news.publishedAt}</p>
     <img src={news.thumbnail.url} alt={news.title} width="200" height="200" />
-    <div class="post" set:html={news.content}></div>
+    <div class="content" set:html={news.content}></div>
   </main>
 </Layout>
 
@@ -32,12 +32,12 @@ const news = await getNewsPost(newsId as string);
     padding: 1em;
     max-width: 60ch;
   }
-  .post {
+  .content {
     figure {
       margin-inline: auto;
     }
     img {
-      max-width: 60ch;
+      max-width: 100%;
       height: auto;
     }
   }

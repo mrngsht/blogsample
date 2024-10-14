@@ -1,8 +1,10 @@
 import fs from "node:fs";
 
-// microCMSの無料プランではデータ転送量の制限(~20GB)がある
-// build時にassetsとしてmicroCMSからダウンロードしておき、
-// ユーザーからのアクセス時にはmicroCMSにアクセスされないようにする
+/**
+ * microCMSの無料プランではデータ転送量の制限(~20GB)がある
+ * build時にassetsとしてmicroCMSからダウンロードしておき、
+ * ユーザーからのアクセス時にはmicroCMSにアクセスされないようにする
+ */
 export async function preloadImage(url: string) :Promise<string> {
   const name = new URL(url).pathname.split("/").pop()
   if (!url.startsWith("/")) {
