@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
-import Layout from "../layouts/Layout.astro";
-import { getNewsPosts } from "../microcms";
+import Layout from "../../layouts/Layout.astro";
+import { getNewsPosts } from "../../microcms";
 
 const res = await getNewsPosts();
 ---
