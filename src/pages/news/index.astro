@@ -14,7 +14,7 @@ const res = await getNewsPosts();
         res.contents.map(x => (
           <li>
             <Image class="thumbnail" src={x.thumbnail.url} alt={x.title} width={x.thumbnail.width} height={x.thumbnail.height} />
-            <a href={"news/"+x.id}>{x.title}</a>
+            <a href={"/news/"+x.id}>{x.title}</a>
           </li>
         ))
       }
