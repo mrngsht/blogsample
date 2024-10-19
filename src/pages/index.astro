@@ -1,9 +1,6 @@
 ---
-import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
-import { getTopImages } from "../microcms";
-
-const res = await getTopImages()
+import TopImageSwiper from "../components/top_image_swiper.astro"
 ---
 
 <Layout title="Sample Web">
@@ -11,11 +8,7 @@ const res = await getTopImages()
     <h1 class="title">AMAM+</h1>
 
     <div>
-      {
-        res.topImages.map(x => (
-          <Image class="top-image" src={x.url} alt="top image" width={x.width} height={x.height} />
-        ))
-      }
+      <TopImageSwiper />
     </div>
 
     <ul>
