@@ -21,11 +21,9 @@ const res = await getTopImages()
 <style>
   .swiper {
     width: 100%;
-    height: 500px;
+    height: 100vh;
   }
   .swiper-slide {
-    display: flex;
-    flex-direction: row-reverse;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -34,19 +32,30 @@ const res = await getTopImages()
     position: relative;
     width: 100%;
   }
+  .top-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
 </style>
 <style is:global>
-  .swiper .swiper-pagination-bullet {
-    width: 4px;
-    height: 4px;
-    display: inline-block;
-    border-radius: 50%;
-    background: #fff;
-    opacity: .2;
-  }
-  .swiper .swiper-pagination-bullet-active {
-    opacity:  1;
-    background: #fff;
+  .swiper {
+    .swiper-pagination-bullet {
+      width: 4px;
+      height: 4px;
+      display: inline-block;
+      border-radius: 50%;
+      background: #fff;
+      opacity: .2;
+    }
+    .swiper-pagination-bullet-active {
+      opacity:  1;
+      background: #fff;
+    }
+    .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+      margin: 0 6px;
+    }
   }
 </style>
 
