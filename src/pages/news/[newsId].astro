@@ -5,7 +5,7 @@ import { getNewsPosts, getNewsPost } from "../../microcms";
 // 詳細記事ページの全パスを取得
 export async function getStaticPaths() {
   const res = await getNewsPosts();
-  return res.contents.map(content => ({
+  return res.contents.map((content) => ({
     params: {
       newsId: content.id,
     },
@@ -22,7 +22,7 @@ const news = await getNewsPost(newsId as string);
     <h1 class="title">{news.title}</h1>
     <p class="publishedAt">公開日時：{news.publishedAt}</p>
     <img src={news.thumbnail.url} alt={news.title} width="200" height="200" />
-    <div class="content" set:html={news.content}></div>
+    <div class="content" set:html={news.content} />
   </main>
 </Layout>
 

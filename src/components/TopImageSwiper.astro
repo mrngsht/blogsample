@@ -2,16 +2,22 @@
 import { Image } from "astro:assets";
 import { getTopImages } from "../microcms";
 
-const res = await getTopImages()
+const res = await getTopImages();
 ---
 
 <div class="swiper">
   <div class="swiper-wrapper">
     {
-      res.topImages.map(x => (
-          <div class="swiper-slide">
-            <Image class="top-image" src={x.url} alt="top image" width={x.width} height={x.height} />
-          </div>
+      res.topImages.map((x) => (
+        <div class="swiper-slide">
+          <Image
+            class="top-image"
+            src={x.url}
+            alt="top image"
+            width={x.width}
+            height={x.height}
+          />
+        </div>
       ))
     }
   </div>
@@ -47,29 +53,31 @@ const res = await getTopImages()
       display: inline-block;
       border-radius: 50%;
       background: #fff;
-      opacity: .2;
+      opacity: 0.2;
     }
     .swiper-pagination-bullet-active {
-      opacity:  1;
+      opacity: 1;
       background: #fff;
     }
-    .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+    .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+    .swiper-pagination-horizontal.swiper-pagination-bullets
+      .swiper-pagination-bullet {
       margin: 0 6px;
     }
   }
 </style>
 
-<script>  
+<script>
   import Swiper from "swiper";
   import { Autoplay, Pagination, EffectFade } from "swiper/modules";
-  import 'swiper/css';
-  import 'swiper/css/bundle';
-  
+  import "swiper/css";
+  import "swiper/css/bundle";
+
   const swiper = new Swiper(".swiper", {
     modules: [Autoplay, Pagination, EffectFade],
-    effect: 'fade',
+    effect: "fade",
     fadeEffect: {
-      crossFade: true
+      crossFade: true,
     },
     spaceBetween: 30,
     speed: 3000,
@@ -80,7 +88,7 @@ const res = await getTopImages()
       pauseOnMouseEnter: true,
     },
     pagination: {
-      el: '.swiper-pagination',
+      el: ".swiper-pagination",
       clickable: true,
     },
   });
