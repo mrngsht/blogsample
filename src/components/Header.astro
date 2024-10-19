@@ -1,0 +1,131 @@
+---
+
+---
+
+<header>
+  <h1 class="logo">
+    <a href="/">AMAM+</a>
+  </h1>
+  <nav>
+    <div class="hamburger">
+      <span class="line"></span>
+      <span class="line"></span>
+      <span class="line"></span>
+    </div>
+    <div class="nav-links">
+      <div>
+        <a href="/news">news</a>
+      </div>
+      <div>
+        <a href="/about">about</a>
+      </div>
+      <div></div>
+      <div>
+        <a href="/webstore">webstore</a>
+      </div>
+      <div>
+        <a href="/contact">contact</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<style>
+  header {
+    z-index: 10;
+    position: fixed;
+    width: 100%;
+    padding-top: 0.5rem;
+  }
+
+  header .logo {
+    position: fixed;
+    width: 100%;
+    height: 5rem;
+    z-index: 15;
+    margin: auto 0;
+    text-align: center;
+  }
+
+  header .logo a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  header nav {
+    position: absolute;
+    width: 100%;
+    z-index: 15;
+  }
+
+  .hamburger {
+    padding: 30px 30px;
+    cursor: pointer;
+  }
+
+  .hamburger .line {
+    display: block;
+    width: 35px;
+    height: 2px;
+    margin-bottom: 13px;
+    background-color: #fff;
+  }
+
+  .nav-links {
+    width: 100%;
+    top: 5rem;
+    left: 48px;
+    background-color: #ff9776;
+    display: none;
+    margin: 0;
+  }
+
+  .nav-links > div {
+    margin: auto;
+  }
+
+  .nav-links a {
+    display: block;
+    text-align: center;
+    padding: 10px 0;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .nav-links a:hover,
+  .nav-links a:focus {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 3px;
+  }
+
+  .expanded {
+    display: unset;
+  }
+
+  @media screen and (min-width: 636px) {
+    .nav-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr 13rem 1fr 1fr;
+      width: 100%;
+      background: none;
+    }
+
+    .nav-links a {
+      display: inline-block;
+    }
+
+    .hamburger {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  document.querySelector(".hamburger").addEventListener("click", () => {
+    document.querySelector(".nav-links").classList.toggle("expanded");
+  });
+</script>
