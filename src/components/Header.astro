@@ -3,68 +3,88 @@
 ---
 
 <header>
-  <h1 class="logo">
-    <a href="/">AMAM+</a>
-  </h1>
   <nav>
-    <div class="hamburger">
+    <div class="nav-links">
       <div>
-        <span class="line"></span>
-        <span class="line"></span>
-        <span class="line"></span>
+        <a class="menu" href="/news">news</a>
+      </div>
+      <div>
+        <a class="menu" href="/about">about</a>
+      </div>
+      <div>
+        <a class="logo" href="/">AMAM+</a>
+      </div>
+      <div>
+        <a class="menu" href="/webstore">webstore</a>
+      </div>
+      <div>
+        <a class="menu" href="/contact">contact</a>
       </div>
     </div>
-    <div class="nav-links">
-      <div class="hamburger-expanded-blank"></div>
-      <div>
-        <a href="/news">news</a>
+    <div class="nav-hamburger">
+      <div class="hamburger">
+        <div class="icon">
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </div>
       </div>
       <div>
-        <a href="/about">about</a>
+        <a class="logo" href="/">AMAM+</a>
       </div>
       <div></div>
-      <div>
-        <a href="/webstore">webstore</a>
-      </div>
-      <div>
-        <a href="/contact">contact</a>
-      </div>
+    </div>
+    <div class="hamburger-list">
+      <a class="menu" href="/news">news</a>
+      <a class="menu" href="/about">about</a>
+      <a class="menu" href="/webstore">webstore</a>
+      <a class="menu" href="/contact">contact</a>
+      <div class="hamburger-closer"></div>
     </div>
   </nav>
 </header>
 
 <style>
   header {
-    z-index: 10;
-    position: fixed;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
     width: 100%;
     height: var(--header-height);
     background-color: var(--header-bg-color);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 10;
+  }
+
+  header a {
   }
 
   header .logo {
-    position: fixed;
-    width: 100%;
-    z-index: 15;
-    text-align: center;
-    margin-top: 0.7rem;
+    display: inline-block;
+    margin: auto auto;
   }
 
   header .logo a {
-    color: #fff;
+    color: var(--header-fg-color);
     text-decoration: none;
     font-size: 2.2rem;
-    font-weight: 300;
+    font-weight: 500;
   }
 
   header nav {
-    position: fixed;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
     width: 100%;
+    height: 100%;
     z-index: 15;
   }
 
   .hamburger {
-    position: fixed;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
     cursor: pointer;
     width: 4rem;
     height: 4rem;
@@ -72,7 +92,7 @@
     align-items: center;
   }
 
-  .hamburger > div {
+  .hamburger .icon {
     width: 60%;
     height: 80%;
     margin: auto auto;
@@ -83,48 +103,100 @@
     width: 100%;
     height: 2px;
     margin: 12px 0;
-    background-color: #fff;
+    background-color: var(--header-fg-color);
   }
 
   .nav-links {
-    width: 100%;
-    top: 5rem;
-    left: 48px;
     display: none;
-    margin-top: 0.8rem;
   }
 
-  .nav-links > div {
-    margin: auto;
-    background-color: var(--header-bg-color);
+  .nav-hamburger {
+    display: grid;
+    grid-template-columns: 1fr 13rem 1fr;
+    width: 100%;
+    height: 100%;
+    top: 5rem;
+    left: 48px;
   }
 
   .nav-links a {
     display: block;
     text-align: center;
-    padding: 10px 0;
     text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: 100;
-    text-transform: uppercase;
-    color: #fff;
+    color: var(--header-fg-color);
   }
 
-  .nav-links a:hover,
-  .nav-links a:focus {
+  .nav-hamburger a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: var(--header-fg-color);
+  }
+
+  .nav-hamburger > div {
+    display: flex;           
+    justify-content: center; 
+    align-items: center;    
+  }
+
+
+  .nav-links a.menu {
+    display: none;
+  }
+
+  .nav-links > div {
+    display: flex;           
+    justify-content: center; 
+    align-items: center;    
+  }
+
+  .nav-links a.menu:hover,
+  .nav-links a.menu:focus {
     text-decoration: underline;
     text-underline-offset: 5px;
     text-decoration-thickness: 1.5px;
   }
 
-  .expanded {
-    display: unset;
+  a.logo {
+    font-size: 2.2rem;
+    font-weight: 400;
   }
 
-  .hamburger-expanded-blank {
-    background: none;
+  .hamburger-list {
+    display: none;
+  }
+
+  .hamburger-list.expanded {
+    display: block;
+    position: absolute; 
+    top: var(--header-height);
+    left: 0;
+    z-index: 10;
+    background-color: var(--header-bg-color);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     width: 100%;
-    height: 4rem;
+  }
+
+  .hamburger-list > a {
+    display: block;
+    text-align: left;
+    font-size: 1.5rem;
+    color: var(--header-fg-color);
+    font-weight: 200;
+    text-decoration: none;
+    padding: 1rem 1rem;
+  }
+
+  .hamburger-list > a:hover,
+  .hamburger-list > a:focus {
+
+  }
+
+  .hamburger-closer {
+    width: 100%;
+    height: 100%;
+    background-color: red;
   }
 
   @media screen and (min-width: 636px) {
@@ -132,20 +204,37 @@
       display: grid;
       grid-template-columns: 1fr 1fr 13rem 1fr 1fr;
       width: 100%;
+      height: 100%;
+      top: 5rem;
+      left: 48px;
     }
 
-    .nav-links > div {
-      background: none;
+    .nav-links a.menu {
+      font-size: 1.1rem;
+      font-weight: 200;
+      text-transform: uppercase;
     }
 
-    .hamburger, .hamburger-expanded-blank { 
+    .nav-hamburger {
+      display: none;
+    }
+
+    .nav-links a.menu {
+      display: block;
+    }
+
+    .hamburger, .hamburger-list.expanded { 
       display: none;
     }
   }
 </style>
 
 <script>
-  document.querySelector(".hamburger").addEventListener("click", () => {
-    document.querySelector(".nav-links").classList.toggle("expanded");
+  document.addEventListener("click", (e) => {
+    if (e.target.closest(".hamburger")) {
+      document.querySelector(".hamburger-list").classList.toggle("expanded");
+    } else if (!e.target.closest(".hamburger-list")) {
+      document.querySelector(".hamburger-list").classList.remove("expanded");
+    } 
   });
 </script>
