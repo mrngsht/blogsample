@@ -38,26 +38,22 @@ const { title, invertHeaderColorOnPageScroll = false } = Astro.props;
 <style is:global>
   :root {
     --header-height: 4rem;
-
-    --header-fg-color: rgba(0, 0, 0, 1);
-    --header-bg-color: rgba(255, 255, 255, 1);
-    --hamburger-list-bg-color: rgba(255, 255, 255, 1);
-    --hamburger-list-hover-bg-color: rgba(18, 18, 18, 0.04);
-
-    --header-fg-color-inverted: rgba(255, 255, 255, 1);
-    --header-bg-color-inverted: transparent;
-    --hamburger-list-bg-color-inverted: rgba(124, 124, 125, 0.4);
-    --hamburger-list-hover-bg-color-inverted: rgba(124, 124, 125, 0.7);
+    --main-fg-color: rgba(18, 18, 18, 0.75);
   }
   html {
-    font-family: "Cormorant Garamond", serif;
-    font-weight: 400;
+    font-family: "Cormorant Garamond", "Shippori Mincho B1", serif;
+    font-weight: 300;
     font-style: normal;
+    letter-spacing: .16rem;
+    line-height: 1.5;
   }
   body {
     margin: 0;
   }
   body.no-scroll {
     overflow: hidden;
+  }
+  * {
+    color: var(--main-fg-color);
   }
 </style>
