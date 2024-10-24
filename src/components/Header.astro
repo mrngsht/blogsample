@@ -1,5 +1,5 @@
 ---
-
+const { invertColorOnPageScroll } = Astro.props;
 ---
 
 <header>
@@ -50,9 +50,9 @@
     top: 0;
     width: 100%;
     height: var(--header-height);
-    background-color: var(--header-bg-color);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    /* background-color: var(--header-bg-color); */
+    /* backdrop-filter: blur(10px); */
+    /* -webkit-backdrop-filter: blur(10px); */
     z-index: 10;
   }
 
@@ -65,10 +65,14 @@
     z-index: 15;
   }
 
+  header a {
+    color: var(--header-fg-color);
+    letter-spacing: .15rem;
+  }
+
   header a.logo {
     display: inline-block;
     margin: auto auto;
-    color: var(--header-fg-color);
     text-decoration: none;
     font-size: 2.2rem;
     font-weight: 500;
@@ -82,7 +86,6 @@
     display: block;
     text-align: center;
     text-decoration: none;
-    color: var(--header-fg-color);
   }
 
   .nav-links > div {
@@ -115,7 +118,6 @@
     display: block;
     text-align: center;
     text-decoration: none;
-    color: var(--header-fg-color);
   }
 
   .nav-hamburger > div {
@@ -169,8 +171,7 @@
     display: block;
     text-align: left;
     font-size: 1.5rem;
-    color: var(--header-fg-color);
-    font-weight: 200;
+    font-weight: 300;
     text-decoration: none;
     padding: 1rem 1rem;
   }
@@ -178,6 +179,16 @@
   .hamburger-list a.menu:hover,
   .hamburger-list a.menu:focus {
     background-color: var(--hamburger-list-hover-bg-color);
+  }
+
+  body.color-inverted header {
+    background-color: white;
+  }
+  body.color-inverted header a {
+    color: black;
+  }
+  body.color-inverted .hamburger .line {
+    background-color: black;
   }
 
   @media screen and (min-width: 636px) {
@@ -192,7 +203,7 @@
 
     .nav-links a.menu {
       font-size: 1.1rem;
-      font-weight: 200;
+      font-weight: 300;
       text-transform: uppercase;
     }
 
@@ -220,3 +231,22 @@
     } 
   });
 </script>
+
+
+{ invertColorOnPageScroll && (
+  <script>
+  const toggleColorInverted = () => {
+    if (document.documentElement.scrollTop > document.documentElement.clientHeight) {
+      document.body.classList.add("color-inverted");
+    } else {
+      document.body.classList.remove("color-inverted");
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', _ => {
+    toggleColorInverted()
+    window.addEventListener('scroll', toggleColorInverted)
+    window.addEventListener('resize', toggleColorInverted)
+  })
+  </script>
+)}

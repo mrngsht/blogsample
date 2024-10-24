@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import TopImageSwiper from "../components/TopImageSwiper.astro";
 ---
 
-<Layout title="Sample Web">
+<Layout title="Sample Web" invertHeaderColorOnPageScroll={true}>
   <main>
     <div class="top-image-swiper">
       <TopImageSwiper />
@@ -67,17 +67,3 @@ import TopImageSwiper from "../components/TopImageSwiper.astro";
   }
 </style>
 
-<script>
-
-
-document.addEventListener('DOMContentLoaded', _ => {
-  window.addEventListener('scroll', () => {
-    if (document.documentElement.scrollTop > document.documentElement.clientHeight) {
-      alert('ok')
-    }
-  })
-  window.addEventListener('resize', function() {
-  })
-})
-
-</script>
