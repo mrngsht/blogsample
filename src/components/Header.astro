@@ -1,6 +1,4 @@
 ---
-import HamburgerIcon from "./HamburgerIcon.astro"
-
 interface Props {
   invertColorOnPageScroll: boolean;
 }
@@ -10,6 +8,7 @@ const { invertColorOnPageScroll } = Astro.props;
 
 <header>
   <nav>
+
     <div class="nav-links">
       <div>
         <a class="menu" href="/news">news</a>
@@ -27,39 +26,55 @@ const { invertColorOnPageScroll } = Astro.props;
         <a class="menu" href="/contact">contact</a>
       </div>
     </div>
+
     <div class="nav-hamburger">
-      <!-- <div class="hamburger"> -->
-      <!--   <div class="icon"> -->
-      <!--     <span class="line"></span> -->
-      <!--     <span class="line"></span> -->
-      <!--     <span class="line"></span> -->
-      <!--   </div> -->
-      <!-- </div> -->
-      <div class="hamburger-icon">
-        <span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            focusable="false"
-            fill="none"
-            viewBox="0 0 18 16"
-          >
-            <path
-              d="M1 .5a.5.5 0 100 1h15.71a.5.5 0 000-1H1zM.5 8a.5.5 0 01.5-.5h15.71a.5.5 0 010 1H1A.5.5 0 01.5 8zm0 7a.5.5 0 01.5-.5h15.71a.5.5 0 010 1H1a.5.5 0 01-.5-.5z"
-              fill="currentColor"
+      <div class="hamburger-header">
+        <div class="hamburger-icon hamburger-icon-open">
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              focusable="false"
+              fill="none"
+              viewBox="0 0 18 16"
             >
-            </path></svg
-          >
-        </span>
+              <path
+                d="M1 .5a.5.5 0 100 1h15.71a.5.5 0 000-1H1zM.5 8a.5.5 0 01.5-.5h15.71a.5.5 0 010 1H1A.5.5 0 01.5 8zm0 7a.5.5 0 01.5-.5h15.71a.5.5 0 010 1H1a.5.5 0 01-.5-.5z"
+                fill="currentColor"
+              >
+              </path></svg
+            >
+          </span>
+        </div>
+        <div class="hamburger-icon hamburger-icon-close">
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              focusable="false"
+              fill="none"
+              viewBox="0 0 18 17"
+            >
+              <path
+                d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z"
+                fill="currentColor"
+              >
+              </path></svg
+            >
+          </span>
+        </div>
+
+        <div>
+          <a class="logo" href="/">AMAM+</a>
+        </div>
+
+        <div></div>
       </div>
-        <a class="logo" href="/">AMAM+</a>
+
+      <div class="hamburger-list">
+        <a class="menu" href="/news">news</a>
+        <a class="menu" href="/about">about</a>
+        <a class="menu" href="/webstore">webstore</a>
+        <a class="menu" href="/contact">contact</a>
       </div>
-      <div></div>
-    </div>
-    <div class="hamburger-list">
-      <a class="menu" href="/news">news</a>
-      <a class="menu" href="/about">about</a>
-      <a class="menu" href="/webstore">webstore</a>
-      <a class="menu" href="/contact">contact</a>
     </div>
   </nav>
 </header>
@@ -74,7 +89,7 @@ const { invertColorOnPageScroll } = Astro.props;
     --header-fg-color-inverted: rgba(255, 255, 255, 1);
     --header-bg-color-inverted: transparent;
     --hamburger-list-bg-color-inverted: rgba(153, 153, 153,  0.7);
-    --hamburger-list-hover-bg-color-inverted: rgba(124, 124, 125, 0.7);
+    --hamburger-list-hover-bg-color-inverted: rgba(100, 100, 100, 0.2);
 
     position: -webkit-sticky;
     position: sticky;
@@ -136,35 +151,27 @@ const { invertColorOnPageScroll } = Astro.props;
   }
 
   .nav-hamburger {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hamburger-header {
     display: grid;
     grid-template-columns: 1fr 13rem 1fr;
     width: 100%;
     height: 100%;
-    top: 5rem;
-    left: 48px;
   }
 
-  .nav-hamburger a {
+  .hamburger-header a.logo {
     display: block;
     text-align: center;
     text-decoration: none;
   }
 
-  .nav-hamburger > div {
+  .hamburger-header > div {
     display: flex;           
     justify-content: center; 
     align-items: center;    
-  }
-
-  .hamburger {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    cursor: pointer;
-    width: 4rem;
-    height: 4rem;
-    display: flex;
-    align-items: center;
   }
 
   .hamburger-icon span {
@@ -180,25 +187,24 @@ const { invertColorOnPageScroll } = Astro.props;
     height: 1.5rem;
   }
 
-  .hamburger .icon {
-    width: 60%;
-    height: 80%;
-    margin: auto auto;
+  .nav-hamburger.expanded .hamburger-icon-open {
+    display: none;
   }
-
-  .hamburger .line {
-    display: block;
-    width: 100%;
-    height: 2px;
-    margin: 12px 0;
-    background-color: var(--header-fg-color);
+  .nav-hamburger.expanded .hamburger-icon-close {
+    display: flex;
   }
-
-  .hamburger-list {
+  .nav-hamburger .hamburger-icon-open {
+    display: flex;
+  }
+  .nav-hamburger .hamburger-icon-close {
     display: none;
   }
 
-  .hamburger-list.expanded {
+  .nav-hamburger .hamburger-list {
+    display: none;
+  }
+
+  .nav-hamburger.expanded .hamburger-list {
     display: block;
     position: absolute; 
     top: var(--header-height);
@@ -208,7 +214,6 @@ const { invertColorOnPageScroll } = Astro.props;
     width: 100%;
     height: calc(100vh - var(--header-height));
     padding-top: 2rem;
-    padding-left: 1rem;
   }
 
   .hamburger-list a.menu {
@@ -219,7 +224,7 @@ const { invertColorOnPageScroll } = Astro.props;
     letter-spacing: .18rem;
     line-height: 1.3;
     text-decoration: none;
-    padding: 1rem 1rem;
+    padding: 1rem 2rem;
     text-transform: uppercase;
   }
 
@@ -240,7 +245,7 @@ const { invertColorOnPageScroll } = Astro.props;
   header.color-inverted .hamburger-icon svg {
     color: var(--header-fg-color-inverted);
   }
-  header.color-inverted .hamburger-list.expanded {
+  header.color-inverted .nav-hamburger.expanded .hamburger-list {
     background-color: var(--hamburger-list-bg-color-inverted);
   }
   header.color-inverted .hamburger-list a.menu:hover,
@@ -266,7 +271,7 @@ const { invertColorOnPageScroll } = Astro.props;
       text-transform: uppercase;
     }
 
-    .nav-hamburger {
+    .hamburger-header {
       display: none;
     }
 
@@ -274,7 +279,7 @@ const { invertColorOnPageScroll } = Astro.props;
       display: block;
     }
 
-    .hamburger, .hamburger-list.expanded { 
+    .hamburger, .hamburger-icon, .nav-hamburger.expanded .hamburger-list { 
       display: none;
     }
   }
@@ -283,11 +288,11 @@ const { invertColorOnPageScroll } = Astro.props;
 <script>
   document.addEventListener("click", e => {
     let target = e.target as HTMLElement;
-    if (target.closest(".hamburger")) {
-      document.querySelector(".hamburger-list")?.classList.toggle("expanded");
+    if (target.closest(".hamburger-icon")) {
+      document.querySelector(".nav-hamburger")?.classList.toggle("expanded");
       document.body.classList.toggle("no-scroll");
     } else if (!target.closest(".hamburger-list")) {
-      document.querySelector(".hamburger-list")?.classList.remove("expanded");
+      document.querySelector(".nav-hamburger")?.classList.remove("expanded");
       document.body.classList.remove("no-scroll");
     } 
   });
