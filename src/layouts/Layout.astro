@@ -39,6 +39,7 @@ const { title, invertHeaderColorOnPageScroll = false } = Astro.props;
   :root {
     --header-height: 4rem;
     --main-fg-color: rgba(18, 18, 18, 0.75);
+    --main-padding-horizontal: 2.5rem;
   }
   html {
     font-family: "Cormorant Garamond", "Shippori Mincho B1", serif;
@@ -55,5 +56,13 @@ const { title, invertHeaderColorOnPageScroll = false } = Astro.props;
   }
   * {
     color: var(--main-fg-color);
+  }
+  main {
+    font-family: "Shippori Mincho B1", serif;
+    padding: 0 var(--main-padding-horizontal);
+  }
+  main h1.title {
+    font-family: "Cormorant Garamond", "Shippori Mincho B1", serif;
+    text-transform: uppercase;
   }
 </style>
