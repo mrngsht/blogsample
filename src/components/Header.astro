@@ -177,19 +177,19 @@ const { invertColorOnPageScroll } = Astro.props;
     background-color: var(--hamburger-list-hover-bg-color);
   }
 
-  body.color-inverted header {
+  header.color-inverted {
     background-color: var(--header-bg-color-inverted);
   }
-  body.color-inverted header a {
+  header.color-inverted a {
     color: var(--header-fg-color-inverted);
   }
-  body.color-inverted .hamburger .line {
+  header.color-inverted .hamburger .line {
     background-color: var(--header-fg-color-inverted);
   }
-  body.color-inverted .hamburger-list.expanded {
+  header.color-inverted .hamburger-list.expanded {
     background-color: var(--hamburger-list-bg-color-inverted);
   }
-  body.color-inverted .hamburger-list a.menu:hover,
+  header.color-inverted .hamburger-list a.menu:hover,
   .hamburger-list a.menu:focus {
     background-color: var(--hamburger-list-hover-bg-color-inverted);
   }
@@ -242,9 +242,9 @@ const { invertColorOnPageScroll } = Astro.props;
   <script>
   const toggleColorInverted = () => {
     if (document.documentElement.scrollTop < document.documentElement.clientHeight) {
-      document.body.classList.add("color-inverted");
+      document.querySelector("header").classList.add("color-inverted");
     } else {
-      document.body.classList.remove("color-inverted");
+      document.querySelector("header").classList.remove("color-inverted");
     }
   }
 
