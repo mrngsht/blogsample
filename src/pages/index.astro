@@ -66,3 +66,18 @@ import TopImageSwiper from "../components/TopImageSwiper.astro";
     position: relative;
   }
 </style>
+
+<script>
+
+
+document.addEventListener('DOMContentLoaded', _ => {
+  window.addEventListener('scroll', () => {
+    if (document.documentElement.scrollTop > document.documentElement.clientHeight) {
+      alert('ok')
+    }
+  })
+  window.addEventListener('resize', function() {
+  })
+})
+
+</script>

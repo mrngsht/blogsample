@@ -211,7 +211,7 @@
 </style>
 
 <script>
-  document.addEventListener("click", (e) => {
+  document.addEventListener("click", e => {
     let target = e.target as HTMLElement;
     if (target.closest(".hamburger")) {
       document.querySelector(".hamburger-list")?.classList.toggle("expanded");
