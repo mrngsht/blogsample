@@ -1,4 +1,8 @@
 ---
+interface Props {
+  invertColorOnPageScroll: boolean;
+}
+
 const { invertColorOnPageScroll } = Astro.props;
 ---
 
@@ -261,9 +265,9 @@ const { invertColorOnPageScroll } = Astro.props;
   <script>
   const toggleColorInverted = () => {
     if (document.documentElement.scrollTop < document.documentElement.clientHeight) {
-      document.querySelector("header").classList.add("color-inverted");
+      document.querySelector("header")?.classList.add("color-inverted");
     } else {
-      document.querySelector("header").classList.remove("color-inverted");
+      document.querySelector("header")?.classList.remove("color-inverted");
     }
   }
 
