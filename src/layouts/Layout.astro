@@ -3,7 +3,7 @@ import Header from "../components/Header.astro"
 
 interface Props {
   title: string;
-  invertHeaderColorOnPageScroll: boolean;
+  invertHeaderColorOnPageScroll: boolean | null;
 }
 
 const { title, invertHeaderColorOnPageScroll = false } = Astro.props;
