@@ -1,4 +1,6 @@
 ---
+import HamburgerIcon from "./HamburgerIcon.astro"
+
 interface Props {
   invertColorOnPageScroll: boolean;
 }
@@ -26,14 +28,29 @@ const { invertColorOnPageScroll } = Astro.props;
       </div>
     </div>
     <div class="nav-hamburger">
-      <div class="hamburger">
-        <div class="icon">
-          <span class="line"></span>
-          <span class="line"></span>
-          <span class="line"></span>
-        </div>
+      <!-- <div class="hamburger"> -->
+      <!--   <div class="icon"> -->
+      <!--     <span class="line"></span> -->
+      <!--     <span class="line"></span> -->
+      <!--     <span class="line"></span> -->
+      <!--   </div> -->
+      <!-- </div> -->
+      <div class="hamburger-icon">
+        <span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            focusable="false"
+            fill="none"
+            viewBox="0 0 18 16"
+          >
+            <path
+              d="M1 .5a.5.5 0 100 1h15.71a.5.5 0 000-1H1zM.5 8a.5.5 0 01.5-.5h15.71a.5.5 0 010 1H1A.5.5 0 01.5 8zm0 7a.5.5 0 01.5-.5h15.71a.5.5 0 010 1H1a.5.5 0 01-.5-.5z"
+              fill="currentColor"
+            >
+            </path></svg
+          >
+        </span>
       </div>
-      <div>
         <a class="logo" href="/">AMAM+</a>
       </div>
       <div></div>
@@ -150,6 +167,19 @@ const { invertColorOnPageScroll } = Astro.props;
     align-items: center;
   }
 
+  .hamburger-icon span {
+    cursor: pointer;
+    display: block;
+    margin: auto auto auto 1.5rem;
+    padding: 0.5rem;
+  }
+
+  .hamburger-icon svg {
+    color: var(--header-fg-color);
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
   .hamburger .icon {
     width: 60%;
     height: 80%;
@@ -206,6 +236,9 @@ const { invertColorOnPageScroll } = Astro.props;
   }
   header.color-inverted .hamburger .line {
     background-color: var(--header-fg-color-inverted);
+  }
+  header.color-inverted .hamburger-icon svg {
+    color: var(--header-fg-color-inverted);
   }
   header.color-inverted .hamburger-list.expanded {
     background-color: var(--hamburger-list-bg-color-inverted);
