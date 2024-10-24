@@ -5,7 +5,9 @@ import TopImageSwiper from "../components/TopImageSwiper.astro";
 
 <Layout title="Sample Web">
   <main>
-    <TopImageSwiper />
+    <div class="top-image-swiper">
+      <TopImageSwiper />
+    </div>
     <div class="contents">
       <h1>news</h1>
       <p>
@@ -49,16 +51,18 @@ import TopImageSwiper from "../components/TopImageSwiper.astro";
       </p>
     </div>
 
+
   </main>
 </Layout>
 
 <style>
-  main {
-    margin: auto;
+  .top-image-swiper {
+    margin-top: calc(var(--header-height) * -1);
+    position: relative;
+    width: 100%;
+    height: 100vh;
   }
   .contents {
-    position: absolute;
-    top: 100vh;
-    left: 0;
+    position: relative;
   }
 </style>
