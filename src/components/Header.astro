@@ -50,9 +50,7 @@ const { invertColorOnPageScroll } = Astro.props;
     top: 0;
     width: 100%;
     height: var(--header-height);
-    /* background-color: var(--header-bg-color); */
-    /* backdrop-filter: blur(10px); */
-    /* -webkit-backdrop-filter: blur(10px); */
+    background-color: var(--header-bg-color);
     z-index: 10;
   }
 
@@ -162,8 +160,6 @@ const { invertColorOnPageScroll } = Astro.props;
     left: 0;
     z-index: 10;
     background-color: var(--hamburger-list-bg-color);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     width: 100%;
   }
 
@@ -182,13 +178,20 @@ const { invertColorOnPageScroll } = Astro.props;
   }
 
   body.color-inverted header {
-    background-color: white;
+    background-color: var(--header-bg-color-inverted);
   }
   body.color-inverted header a {
-    color: black;
+    color: var(--header-fg-color-inverted);
   }
   body.color-inverted .hamburger .line {
-    background-color: black;
+    background-color: var(--header-fg-color-inverted);
+  }
+  body.color-inverted .hamburger-list.expanded {
+    background-color: var(--hamburger-list-bg-color-inverted);
+  }
+  body.color-inverted .hamburger-list a.menu:hover,
+  .hamburger-list a.menu:focus {
+    background-color: var(--hamburger-list-hover-bg-color-inverted);
   }
 
   @media screen and (min-width: 636px) {
@@ -226,8 +229,10 @@ const { invertColorOnPageScroll } = Astro.props;
     let target = e.target as HTMLElement;
     if (target.closest(".hamburger")) {
       document.querySelector(".hamburger-list")?.classList.toggle("expanded");
+      document.body.classList.toggle("no-scroll");
     } else if (!target.closest(".hamburger-list")) {
       document.querySelector(".hamburger-list")?.classList.remove("expanded");
+      document.body.classList.remove("no-scroll");
     } 
   });
 </script>
@@ -236,7 +241,7 @@ const { invertColorOnPageScroll } = Astro.props;
 { invertColorOnPageScroll && (
   <script>
   const toggleColorInverted = () => {
-    if (document.documentElement.scrollTop > document.documentElement.clientHeight) {
+    if (document.documentElement.scrollTop < document.documentElement.clientHeight) {
       document.body.classList.add("color-inverted");
     } else {
       document.body.classList.remove("color-inverted");
