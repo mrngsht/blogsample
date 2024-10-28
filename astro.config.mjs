@@ -4,5 +4,8 @@ import preload from './src/preload'
 
 // https://astro.build/config
 export default defineConfig({
-   integrations: [preload()]
+  integrations: [preload()],
+  redirects: {
+    '/news': '/news/page/1'
+  }
 });

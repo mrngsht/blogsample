@@ -1,0 +1,41 @@
+---
+import type { PaginateFunction } from "astro";
+import Layout from "../../../layouts/Layout.astro";
+
+export async function getStaticPaths({
+  paginate,
+}: {
+  paginate: PaginateFunction;
+}) {
+  const astronautPages = [
+    {
+      astronaut: "ニール・アームストロング",
+    },
+    {
+      astronaut: "バズ・オルドリン",
+    },
+    {
+      astronaut: "サリー・ライド",
+    },
+    {
+      astronaut: "ジョン・グレン",
+    },
+  ];
+  return paginate(astronautPages, { pageSize: 10 });
+}
+
+const { page } = Astro.props;
+---
+
+<Layout title="news | Sample Web">
+  <main>
+    <h1>{page.currentPage}page</h1>
+    <ul>
+      <!--宇宙飛行士情報の配列を列挙します-->
+      {page.data.map(({ astronaut }) => <li>{astronaut}</li>)}
+    </ul>
+    {page.url.prev ? <a href={page.url.prev}>Previous</a> : null}
+    {page.url.next ? <a href={page.url.next}>Next</a> : null}
+  </main>
+</Layout>
+
