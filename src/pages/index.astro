@@ -4,7 +4,7 @@ import TopImageSwiper from "../components/TopImageSwiper.astro";
 ---
 
 <Layout title="Sample Web" invertHeaderColorOnPageScroll={true}>
-  <main>
+  <main class="home">
     <div class="top-image-swiper">
       <TopImageSwiper />
     </div>
@@ -58,14 +58,19 @@ import TopImageSwiper from "../components/TopImageSwiper.astro";
     padding: 0;
   }
   .top-image-swiper {
-    margin-top: calc(var(--header-height) * -1);
     position: relative;
-    width: 100%;
+    top: 0;
+    left: 0;
+    margin-top: calc(var(--header-height) * -1);
+    width: 100vw;
     height: 100vh;
   }
   .contents {
     position: relative;
-    padding: 5rem var(--main-padding-horizontal) 3rem var(--main-padding-horizontal);
+    padding: 5rem 0 3rem 0;
+    width: var(--main-width);
+    max-width: var(--main-max-width);
+    margin: 0 auto;
   }
 </style>
 

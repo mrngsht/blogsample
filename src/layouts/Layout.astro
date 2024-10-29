@@ -41,6 +41,8 @@ const { title, invertHeaderColorOnPageScroll = false } = Astro.props;
     --header-height: 5rem;
     --main-fg-color: rgba(18, 18, 18, 0.75);
     --main-padding-horizontal: 1.2rem;
+    --main-width: 90%;
+    --main-max-width: var(--main-width);
   }
   html {
     font-family: "Cormorant Garamond", "Shippori Mincho B1", serif;
@@ -60,7 +62,12 @@ const { title, invertHeaderColorOnPageScroll = false } = Astro.props;
   }
   main {
     font-family: "Shippori Mincho B1", serif;
-    padding: 0 var(--main-padding-horizontal);
+  }
+  main:not(main.home) {
+    /* padding: 0 var(--main-padding-horizontal); */
+    width: var(--main-width);
+    max-width: var(--main-max-width);
+    margin: 0 auto;
   }
   main h1.title {
     font-family: "Cormorant Garamond", "Shippori Mincho B1", serif;
@@ -69,7 +76,9 @@ const { title, invertHeaderColorOnPageScroll = false } = Astro.props;
 
   @media screen and (min-width: 636px) {
     :root {
-      --main-padding-horizontal: 2.5rem;
+      --main-padding-horizontal: 9rem;
+      --main-width: 90%;
+      --main-max-width: 992px;
     }
   }
 

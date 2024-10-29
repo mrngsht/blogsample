@@ -1,7 +1,9 @@
 ---
+import { Image } from "astro:assets";
 import type { PaginateFunction } from "astro";
 import Layout from "../../../layouts/Layout.astro";
 import { getNewsPosts } from "../../../microcms";
+import { formatDate } from "../../../util";
 
 export async function getStaticPaths({
   paginate,
@@ -9,7 +11,7 @@ export async function getStaticPaths({
   paginate: PaginateFunction;
 }) {
   const res = await getNewsPosts();
-  return paginate(res.contents, { pageSize: 1 });
+  return paginate(res, { pageSize: 5 });
 }
 
 const { page } = Astro.props;
@@ -18,36 +20,111 @@ const { page } = Astro.props;
 <Layout title="news | Sample Web">
   <main>
     <h1 class="title">news</h1>
-    <ul>
-      {page.data.map(x => <li>{x.title}</li>)}
+    <ul class="news-list">
+      {page.data.map(x => 
+        <li>
+          <a href={"/news/" + x.id}> 
+            <div class="news-thumbnail">
+              <Image
+                src={x.thumbnail.url}
+                alt={x.title}
+                width={x.thumbnail.width}
+                height={x.thumbnail.height}
+              />
+            </div>
+            <div class="news-published-at">{formatDate(new Date(x.publishedAt))}</div>
+            <div class="news-title">{x.title}</div>
+          </a>
+        </li>
+      )}
     </ul>
-    <nav class="nav-page">
-      <span class="page-link">
-        {page.url.prev ? (
-          <a href={page.url.prev}>&lt; Prev</a>
-        ) : null}
-      </span>
-      <span class="page-number">
-        <span>Page</span>
-        <span>{page.currentPage} of {page.lastPage}</span>
-      </span>
-      <span class="page-link">
-        {page.url.next ? (
-          <a href={page.url.next}>Next &gt;</a>
-        ) : null}
-      </span>
-      
-    </nav>
+    {page.lastPage > 1 && (
+      <nav class="nav-page">
+        <span class="page-link">
+          {page.url.prev ? (
+            <a href={page.url.prev}>&lt; Prev</a>
+          ) : null}
+        </span>
+        <span class="page-number">
+          <span>Page</span>
+          <span>{page.currentPage} of {page.lastPage}</span>
+        </span>
+        <span class="page-link">
+          {page.url.next ? (
+            <a href={page.url.next}>Next &gt;</a>
+          ) : null}
+        </span>
+      </nav>
+    )}
   </main>
 </Layout>
 
 <style>
+  .news-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    width: 100%;
+    padding: 0;
+  }
+
+  .news-list > li {
+    --thumbnail-height: 300px;
+    --published-at-height: 25px;
+    --title-height: 75px;
+
+    display: block;
+    list-style-type: none;
+    width: auto;
+    max-width: 100%;
+    height: calc(var(--thumbnail-height) + var(--published-at-height) + var(--title-height));
+  }
+
+  .news-list .news-thumbnail {
+    width: 100%;
+    height: var(--thumbnail-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .news-list .news-thumbnail img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+  }
+
+  .news-list a {
+    text-decoration: none;
+  }
+
+  .news-list a:hover,
+  .news-list a:focus {
+    opacity: 70%;
+  }
+
+  .news-list .news-published-at {
+    height: var(--published-at-height);
+  }
+
+  .news-list .news-title {
+    overflow: hidden;
+    width: 100%;
+    height: var(--title-height);
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+  }
+
   .nav-page {
     display: flex;
     justify-content: center;
     align-items: center;;
     height: 2rem;
-    margin: 4rem 0;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
   }
 
   .nav-page > span {
@@ -68,7 +145,6 @@ const { page } = Astro.props;
     height: 100%;
     font-size: 1.1rem;
     text-decoration: none;
-    text-align: 
   }
 
   .nav-page a:hover,
@@ -84,8 +160,18 @@ const { page } = Astro.props;
   }
   
   @media screen and (min-width: 636px) {
+    .news-list {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+    }
+
     .nav-page .page-number > span {
       display: inline;
+    }
+
+    .nav-page {
+      margin-top: 4rem;
+      margin-bottom: 4rem;
     }
   }
 

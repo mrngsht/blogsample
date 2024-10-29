@@ -7,13 +7,6 @@ const client = createClient({
   apiKey: import.meta.env.MICROCMS_API_KEY,
 });
 
-export type NewsResponse = {
-  totalCount: number;
-  offset: number;
-  limit: number;
-  contents: NewsPostSummary[];
-};
-
 export type NewsPostSummary = {
   id: string;
   publishedAt: string;
@@ -21,15 +14,21 @@ export type NewsPostSummary = {
   thumbnail: CmsImage;
 };
 
-export const getNewsPosts = async (): Promise<NewsResponse> => {
-  const res = await client.get<NewsResponse>({ 
+export const getNewsPosts = async (): Promise<NewsPostSummary[]> => {
+  const res = await client.getAllContents<NewsPostSummary>({ 
     endpoint: "news", 
     queries: {fields: ["id", "publishedAt", "title", "thumbnail"]},
   });
-  await Promise.all(res.contents.map(async x => {
+  await Promise.all(res.map(async x => {
     x.thumbnail.url = await preloadImage(x.thumbnail.url)
   }))
   return res
+}
+
+export const getNewsPostIds = async (): Promise<string[]> => {
+  return await client.getAllContentIds({ 
+    endpoint: "news", 
+  });
 }
 
 export type NewsPostDetailResponse = {
