@@ -11,7 +11,7 @@ export async function getStaticPaths({
   paginate: PaginateFunction;
 }) {
   const res = await getNewsPosts();
-  return paginate(res, { pageSize: 5 });
+  return paginate(res, { pageSize: 10 });
 }
 
 const { page } = Astro.props;
@@ -72,12 +72,14 @@ const { page } = Astro.props;
     --thumbnail-height: 300px;
     --published-at-height: 25px;
     --title-height: 75px;
+    --gap-from-thumbnail-to-published-at: 20px;
+    --gap-from-published-at-to-title: 5px;
 
     display: block;
     list-style-type: none;
     width: auto;
     max-width: 100%;
-    height: calc(var(--thumbnail-height) + var(--published-at-height) + var(--title-height));
+    height: calc(var(--thumbnail-height) + var(--published-at-height) + var(--title-height) + var(--gap-from-published-at-to-title) + var(--gap-from-thumbnail-to-published-at));
   }
 
   .news-list .news-thumbnail {
@@ -106,6 +108,8 @@ const { page } = Astro.props;
 
   .news-list .news-published-at {
     height: var(--published-at-height);
+    margin-top: var(--gap-from-thumbnail-to-published-at);
+    margin-bottom: var(--gap-from-published-at-to-title);
   }
 
   .news-list .news-title {
@@ -170,7 +174,7 @@ const { page } = Astro.props;
     }
 
     .nav-page {
-      margin-top: 4rem;
+      margin-top: 3rem;
       margin-bottom: 4rem;
     }
   }
