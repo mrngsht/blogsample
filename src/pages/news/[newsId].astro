@@ -1,6 +1,8 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
 import { getNewsPostIds, getNewsPost } from "../../microcms";
+import { formatDate } from "../../util";
 
 // 詳細記事ページの全パスを取得
 export async function getStaticPaths() {
@@ -19,23 +21,65 @@ const news = await getNewsPost(newsId);
 
 <Layout title="news | Sample Web">
   <main>
-    <h1 class="title">{news.title}</h1>
-    <p class="publishedAt">公開日時：{news.publishedAt}</p>
-    <img src={news.thumbnail.url} alt={news.title} width="200" height="200" />
-    <div class="content" set:html={news.content} />
+    <h1 class="title">news</h1>
+    <div class="news-thumbnail">
+      <Image src={news.thumbnail.url} alt={news.title} width={news.thumbnail.width} height={news.thumbnail.height} />
+    </div>
+    <p class="news-published-at">{formatDate(new Date(news.publishedAt))}</p>
+    <h2 class="news-title">{news.title}</h2>
+    <div class="news-content" set:html={news.content} />
   </main>
 </Layout>
 
 <style>
   main {
   }
-  .content {
+
+  .news-thumbnail {
+    width: 100%;
+    height: 350px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+  }
+
+  .news-thumbnail img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+  }
+
+  .news-published-at {
+    font-size: 1.05rem; 
+    font-weight: 400; 
+    margin-bottom: 0;
+  }
+
+  .news-title {
+    font-size: 1.3rem; 
+    font-weight: 500; 
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .news-content {
     figure {
       margin-inline: auto;
     }
     img {
       max-width: 100%;
       height: auto;
+    }
+  }
+
+  @media screen and (min-width: 636px) {
+    .news-thumbnail {
+      height: 450px;
+    }
+
+    .news-title {
+      margin-bottom: 3rem;
     }
   }
 </style>
