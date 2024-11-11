@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import TopImageSwiper from "../components/TopImageSwiper.astro";
 import { getNewsPosts } from "../microcms";
+import NewsList from "../components/NewsList.astro";
 
 const news = await getNewsPosts(3);
 ---
@@ -12,7 +13,7 @@ const news = await getNewsPosts(3);
       <TopImageSwiper />
     </div>
     <div class="contents">
-      <div>
+      <div class="content">
         <p>
           私の目に映る景色は、壮大な自然と美しい空。<br>
           一年の半分は白い美しい世界に包まれて、白い季節は目を閉じて時の流れを感じている。<br>
@@ -22,26 +23,14 @@ const news = await getNewsPosts(3);
           この景色の向こう側には何が待っているのだろう。
         </p>
       </div>
-      <h1 class="title">news</h1>
-      <p>aaaaaaaaaaaaaa</p>
-      <h1 class="title">news</h1>
-      <p>aaaaaaaaaaaaaa</p>
-      <h1 class="title">news</h1>
-      <p>aaaaaaaaaaaaaa</p>
-      <h1 class="title">news</h1>
-      <p>aaaaaaaaaaaaaa</p>
-      <h1 class="title">news</h1>
-      <p>aaaaaaaaaaaaaa</p>
-      <h1 class="title">news</h1>
-      <p>aaaaaaaaaaaaaa</p>
-      <h1 class="title">news</h1>
-      <p>aaaaaaaaaaaaaa</p>
-      <h1 class="title">news</h1>
-      <p>aaaaaaaaaaaaaa</p>
-      <h1 class="title">news</h1>
-      <p>aaaaaaaaaaaaaa</p>
-      <h1 class="title">news</h1>
-      <p>aaaaaaaaaaaaaa</p>
+
+      <div class="content">
+        <h1 class="title">news</h1>
+        <NewsList news={news} />
+        <p class="link-button">
+          <a href="news/page/1">MORE</a>
+        </p>
+      </div>
     </div>
   </main>
 </Layout>
@@ -60,9 +49,32 @@ const news = await getNewsPosts(3);
   }
   .contents {
     position: relative;
-    padding: 5rem 0 3rem 0;
     width: var(--main-width);
     max-width: var(--main-max-width);
     margin: 0 auto;
+  }
+
+  .content {
+    padding-top: 2rem;
+  }
+  .content:not(:nth-child(1)) {
+    margin-top: 4rem;
+    border-top: .1rem solid rgba(18, 18, 18,.08);
+  }
+
+  .link-button {
+    text-align: center;
+    margin: 4rem 0;
+  }
+
+  .link-button a {
+    border: 1px solid var(--main-fg-color);
+    padding: 0.7rem 4rem;
+    text-decoration: none;
+  }
+
+  .link-button a:hover,
+  .link-button a:focus {
+    opacity: 0.7;
   }
 </style>
