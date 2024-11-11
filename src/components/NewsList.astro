@@ -1,0 +1,102 @@
+
+---
+import { Image } from "astro:assets";
+import { formatDate } from "../util";
+import type { NewsPostSummary } from "../microcms";
+
+interface Props {
+  news: NewsPostSummary[];
+}
+
+const { news } = Astro.props;
+---
+<ul class="news-list">
+  {news.map(x => 
+    <li>
+      <a href={"/news/" + x.id}> 
+        <div class="news-thumbnail">
+          <Image
+            src={x.thumbnail.url}
+            alt={x.title}
+            width={x.thumbnail.width}
+            height={x.thumbnail.height}
+          />
+        </div>
+        <div class="news-published-at">{formatDate(new Date(x.publishedAt))}</div>
+        <div class="news-title">{x.title}</div>
+      </a>
+    </li>
+  )}
+</ul>
+
+<style>
+  .news-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    width: 100%;
+    padding: 0;
+  }
+
+  .news-list > li {
+    --thumbnail-height: 300px;
+    --published-at-height: 25px;
+    --title-height: 75px;
+    --gap-from-thumbnail-to-published-at: 20px;
+    --gap-from-published-at-to-title: 5px;
+
+    display: block;
+    list-style-type: none;
+    width: auto;
+    max-width: 100%;
+    height: calc(var(--thumbnail-height) + var(--published-at-height) + var(--title-height) + var(--gap-from-published-at-to-title) + var(--gap-from-thumbnail-to-published-at));
+  }
+
+  .news-list .news-thumbnail {
+    width: 100%;
+    height: var(--thumbnail-height);
+    display: flex;
+    justify-content: left;
+    align-items: center;
+  }
+
+  .news-list .news-thumbnail img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+  }
+
+  .news-list a {
+    text-decoration: none;
+  }
+
+  .news-list a:hover,
+  .news-list a:focus {
+    opacity: 70%;
+  }
+
+  .news-list .news-published-at {
+    height: var(--published-at-height);
+    margin-top: var(--gap-from-thumbnail-to-published-at);
+    margin-bottom: var(--gap-from-published-at-to-title);
+  }
+
+  .news-list .news-title {
+    overflow: hidden;
+    width: 100%;
+    height: var(--title-height);
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+  }
+
+  @media screen and (min-width: 636px) {
+    .news-list {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+  }
+
+</style>

@@ -1,9 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import TopImageSwiper from "../components/TopImageSwiper.astro";
-import { getNewsPosts } from "../../../microcms";
+import { getNewsPosts } from "../microcms";
 
-  const res = await getAllNewsPosts();
+const news = await getNewsPosts(3);
 ---
 
 <Layout title="Sample Web" invertHeaderColorOnPageScroll={true}>
