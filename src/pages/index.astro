@@ -3,6 +3,9 @@ import Layout from "../layouts/Layout.astro";
 import TopImageSwiper from "../components/TopImageSwiper.astro";
 import { getNewsPosts } from "../microcms";
 import NewsList from "../components/NewsList.astro";
+import { Image } from "astro:assets";
+import webstoreImage from "../images/webstore.webp"
+import cafeImage from "../images/cafe.jpg"
 
 const news = await getNewsPosts(3);
 ---
@@ -28,9 +31,36 @@ const news = await getNewsPosts(3);
         <h1 class="title">news</h1>
         <NewsList news={news} />
         <p class="link-button">
-          <a href="news/page/1">MORE</a>
+          <a href="/news/page/1">お知らせ一覧を見る</a>
         </p>
       </div>
+
+      <div class="content">
+        <h1 class="title">webstore</h1>
+        <p>
+          <Image src={webstoreImage} alt="web store image" />
+        </p>
+        <p class="center-description">
+          WEBでも不定期で商品を販売しております
+        </p>
+        <p class="link-button">
+          <a href="https://amam-plus.com/" target="_blank" rel="noopener noreferrer">WEBSTOREへ行く</a>
+        </p>
+      </div>
+
+      <div class="content">
+        <h1 class="title">cafe</h1>
+        <p>
+          <Image src={cafeImage} alt="cafe image" />
+        </p>
+        <p class="center-description">
+          店舗併設のカフェの予約ができます
+        </p>
+        <p class="link-button">
+          <a href="https://tol-app.jp/s/amamplus" target="_blank" rel="noopener noreferrer">カフェの予約をする</a>
+        </p>
+      </div>
+
     </div>
   </main>
 </Layout>
@@ -62,9 +92,24 @@ const news = await getNewsPosts(3);
     border-top: .1rem solid rgba(18, 18, 18,.08);
   }
 
+  .content .center-description {
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .content img {
+    width: 85%;
+    max-width: 600px;
+    height: 400px;
+    display: block;
+    margin: 0 auto;
+    object-fit: cover;
+    object-position: 0 57%;
+  }
+
   .link-button {
     text-align: center;
-    margin: 4rem 0;
+    margin: 5rem 0;
   }
 
   .link-button a {
