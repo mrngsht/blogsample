@@ -1,6 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import TopImageSwiper from "../components/TopImageSwiper.astro";
+import { getNewsPosts } from "../../../microcms";
+
+  const res = await getAllNewsPosts();
 ---
 
 <Layout title="Sample Web" invertHeaderColorOnPageScroll={true}>
@@ -9,46 +12,36 @@ import TopImageSwiper from "../components/TopImageSwiper.astro";
       <TopImageSwiper />
     </div>
     <div class="contents">
+      <div>
+        <p>
+          私の目に映る景色は、壮大な自然と美しい空。<br>
+          一年の半分は白い美しい世界に包まれて、白い季節は目を閉じて時の流れを感じている。<br>
+          ひんやりとした空気なのだけど、なぜかとても暖かくて心地が良くて。<br>
+          目を開ける頃には、力が漲り、目の前に広がる壮大な緑の大地に一歩踏み出す。<br>
+          短い緑の季節。 この緑の大地を力強く駆け抜ける。<br>
+          この景色の向こう側には何が待っているのだろう。
+        </p>
+      </div>
       <h1 class="title">news</h1>
-      <p>
-      aaaaaaaaaaaaaa
-      </p>
+      <p>aaaaaaaaaaaaaa</p>
       <h1 class="title">news</h1>
-      <p>
-      aaaaaaaaaaaaaa
-      </p>
+      <p>aaaaaaaaaaaaaa</p>
       <h1 class="title">news</h1>
-      <p>
-      aaaaaaaaaaaaaa
-      </p>
+      <p>aaaaaaaaaaaaaa</p>
       <h1 class="title">news</h1>
-      <p>
-      aaaaaaaaaaaaaa
-      </p>
+      <p>aaaaaaaaaaaaaa</p>
       <h1 class="title">news</h1>
-      <p>
-      aaaaaaaaaaaaaa
-      </p>
+      <p>aaaaaaaaaaaaaa</p>
       <h1 class="title">news</h1>
-      <p>
-      aaaaaaaaaaaaaa
-      </p>
+      <p>aaaaaaaaaaaaaa</p>
       <h1 class="title">news</h1>
-      <p>
-      aaaaaaaaaaaaaa
-      </p>
+      <p>aaaaaaaaaaaaaa</p>
       <h1 class="title">news</h1>
-      <p>
-      aaaaaaaaaaaaaa
-      </p>
+      <p>aaaaaaaaaaaaaa</p>
       <h1 class="title">news</h1>
-      <p>
-      aaaaaaaaaaaaaa
-      </p>
+      <p>aaaaaaaaaaaaaa</p>
       <h1 class="title">news</h1>
-      <p>
-      aaaaaaaaaaaaaa
-      </p>
+      <p>aaaaaaaaaaaaaa</p>
     </div>
   </main>
 </Layout>
@@ -73,4 +66,3 @@ import TopImageSwiper from "../components/TopImageSwiper.astro";
     margin: 0 auto;
   }
 </style>
-

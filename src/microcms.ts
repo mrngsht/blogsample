@@ -14,7 +14,21 @@ export type NewsPostSummary = {
   thumbnail: CmsImage;
 };
 
-export const getNewsPosts = async (): Promise<NewsPostSummary[]> => {
+export const getNewsPosts = async (limit: number): Promise<NewsPostSummary[]> => {
+  const res = await client.getList<NewsPostSummary>({ 
+    endpoint: "news", 
+    queries: {
+      fields: ["id", "publishedAt", "title", "thumbnail"],
+      limit: limit,
+    },
+  });
+  await Promise.all(res.contents.map(async x => {
+    x.thumbnail.url = await preloadImage(x.thumbnail.url)
+  }))
+  return res.contents
+}
+
+export const getAllNewsPosts = async (): Promise<NewsPostSummary[]> => {
   const res = await client.getAllContents<NewsPostSummary>({ 
     endpoint: "news", 
     queries: {fields: ["id", "publishedAt", "title", "thumbnail"]},

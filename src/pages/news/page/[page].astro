@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import type { PaginateFunction } from "astro";
 import Layout from "../../../layouts/Layout.astro";
-import { getNewsPosts } from "../../../microcms";
+import { getAllNewsPosts } from "../../../microcms";
 import { formatDate } from "../../../util";
 
 export async function getStaticPaths({
@@ -10,7 +10,7 @@ export async function getStaticPaths({
 }: {
   paginate: PaginateFunction;
 }) {
-  const res = await getNewsPosts();
+  const res = await getAllNewsPosts();
   return paginate(res, { pageSize: 10 });
 }
 
