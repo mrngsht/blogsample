@@ -1,8 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
-import { getProductIds, getProducts } from "../../microcms";
-import { formatDate } from "../../util";
+import { getProductIds, getProductDetail } from "../../microcms";
 
 // 詳細記事ページの全パスを取得
 export async function getStaticPaths() {
@@ -16,7 +15,7 @@ export async function getStaticPaths() {
 
 //記事の詳細情報を取得
 const { productsId } = Astro.params;
-const products = await getProducts(productsId);
+const products = await getProductDetail(productsId);
 ---
 
 <Layout title="products | Sample Web">
@@ -25,7 +24,6 @@ const products = await getProducts(productsId);
     <div class="products-thumbnail">
       <Image src={products.thumbnail.url} alt={products.name} width={products.thumbnail.width} height={products.thumbnail.height} />
     </div>
-    <p class="products-published-at">{formatDate(new Date(products.publishedAt))}</p>
     <h2 class="products-name">{products.name}</h2>
     <div class="products-content" set:html={products.content} />
   </main>
@@ -50,16 +48,10 @@ const products = await getProducts(productsId);
     height: auto;
   }
 
-  .products-published-at {
-    font-size: 1.05rem; 
-    font-weight: 400; 
-    margin-bottom: 0;
-  }
-
   .products-name {
     font-size: 1.3rem; 
     font-weight: 500; 
-    margin-top: 0.5rem;
+    margin-top: 1.5rem;
     margin-bottom: 2rem;
   }
 

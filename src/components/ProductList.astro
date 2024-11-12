@@ -1,7 +1,6 @@
 
 ---
 import { Image } from "astro:assets";
-import { formatDate } from "../util";
 import type { ProductSummary } from "../microcms";
 
 interface Props {
@@ -22,7 +21,6 @@ const { products } = Astro.props;
             height={x.thumbnail.height}
           />
         </div>
-        <div class="products-published-at">{formatDate(new Date(x.publishedAt))}</div>
         <div class="products-name">{x.name}</div>
       </a>
     </li>
@@ -40,16 +38,14 @@ const { products } = Astro.props;
 
   .products-list > li {
     --thumbnail-height: 300px;
-    --published-at-height: 25px;
     --name-height: 75px;
-    --gap-from-thumbnail-to-published-at: 20px;
-    --gap-from-published-at-to-name: 5px;
+    --gap-from-thumbnail-to-name: 20px;
 
     display: block;
     list-style-type: none;
     width: auto;
     max-width: 100%;
-    height: calc(var(--thumbnail-height) + var(--published-at-height) + var(--name-height) + var(--gap-from-published-at-to-name) + var(--gap-from-thumbnail-to-published-at));
+    height: calc(var(--thumbnail-height) + var(--name-height) + var(--gap-from-thumbnail-to-name));
   }
 
   .products-list .products-thumbnail {
@@ -75,12 +71,6 @@ const { products } = Astro.props;
     opacity: 0.7;
   }
 
-  .products-list .products-published-at {
-    height: var(--published-at-height);
-    margin-top: var(--gap-from-thumbnail-to-published-at);
-    margin-bottom: var(--gap-from-published-at-to-name);
-  }
-
   .products-list .products-name {
     overflow: hidden;
     width: 100%;
@@ -89,6 +79,7 @@ const { products } = Astro.props;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     display: -webkit-box;
+    margin-top: var(--gap-from-thumbnail-to-name);
   }
 
   @media screen and (min-width: 636px) {

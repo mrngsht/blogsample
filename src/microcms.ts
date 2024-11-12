@@ -53,7 +53,7 @@ export type NewsPostDetailResponse = {
   content: string;
 };
 
-export const getNewsPost = async (contentId: string): Promise<NewsPostDetailResponse> => {
+export const getNewsPostDetail = async (contentId: string): Promise<NewsPostDetailResponse> => {
   const res = await client.getListDetail<NewsPostDetailResponse>({
     endpoint: "news",
     contentId,
@@ -78,7 +78,7 @@ export type ProductSummary = {
   thumbnail: CmsImage;
 };
 
-export const getProductsPosts = async (limit: number): Promise<ProductSummary[]> => {
+export const getProducts = async (limit: number): Promise<ProductSummary[]> => {
   const res = await client.getList<ProductSummary>({ 
     endpoint: "products", 
     queries: {
@@ -117,7 +117,7 @@ export type ProductsDetailResponse = {
   content: string;
 };
 
-export const getProducts = async (contentId: string): Promise<ProductsDetailResponse> => {
+export const getProductDetail = async (contentId: string): Promise<ProductsDetailResponse> => {
   const res = await client.getListDetail<ProductsDetailResponse>({
     endpoint: "products",
     contentId,

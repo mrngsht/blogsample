@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
-import { getNewsPostIds, getNewsPost } from "../../microcms";
+import { getNewsPostIds, getNewsPostDetail } from "../../microcms";
 import { formatDate } from "../../util";
 
 // 詳細記事ページの全パスを取得
@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 
 //記事の詳細情報を取得
 const { newsId } = Astro.params;
-const news = await getNewsPost(newsId);
+const news = await getNewsPostDetail(newsId);
 ---
 
 <Layout title="news | Sample Web">

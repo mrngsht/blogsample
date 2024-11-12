@@ -1,13 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import TopImageSwiper from "../components/TopImageSwiper.astro";
-import { getNewsPosts } from "../microcms";
+import { getNewsPosts, getProducts } from "../microcms";
 import NewsList from "../components/NewsList.astro";
 import { Image } from "astro:assets";
 import webstoreImage from "../images/webstore.webp"
 import cafeImage from "../images/cafe.jpg"
+import ProductList from "../components/ProductList.astro";
 
 const news = await getNewsPosts(3);
+const products = await getProducts(3);
 ---
 
 <Layout title="Sample Web" invertHeaderColorOnPageScroll={true}>
@@ -32,6 +34,14 @@ const news = await getNewsPosts(3);
         <NewsList news={news} />
         <p class="link-button">
           <a href="/news/page/1">お知らせ一覧を見る</a>
+        </p>
+      </div>
+
+      <div class="content">
+        <h1 class="title">products</h1>
+        <ProductList products={products} />
+        <p class="link-button">
+          <a href="/products/page/1">商品一覧を見る</a>
         </p>
       </div>
 
