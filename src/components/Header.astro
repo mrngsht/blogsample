@@ -215,7 +215,7 @@ const { invertColorOnPageScroll } = Astro.props;
 <script>
   document.addEventListener("click", e => {
     let target = e.target as HTMLElement;
-    if (target.closest(".hamburger-icon")) {
+    if (target.closest(".hamburger-icon span")) {
       document.querySelector(".nav-hamburger")?.classList.toggle("expanded");
       document.body.classList.toggle("no-scroll");
     } else if (!target.closest(".hamburger-list")) {
