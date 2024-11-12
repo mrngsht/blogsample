@@ -1,0 +1,32 @@
+---
+
+interface Props {
+  href: string;
+}
+
+const { href } = Astro.props;
+
+---
+<p class="link-button">
+  { href.startsWith("/") ? 
+    <a href={href}><slot /></a>:
+    <a href={href} target="_blank" rel="noopener noreferrer"><slot /></a>
+  }
+</p>
+
+<style>
+.link-button {
+  text-align: center;
+  margin: 5rem 0;
+}
+
+.link-button a {
+  border: 1px solid var(--main-fg-color);
+  padding: 0.7rem 4rem;
+  text-decoration: none;
+}
+
+.link-button a:hover {
+  opacity: 0.7;
+}
+</style>

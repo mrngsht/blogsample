@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import TopImageSwiper from "../components/TopImageSwiper.astro";
+import LinkButton from "../components/LinkButton.astro";
 import { getNewsPosts, getProducts } from "../microcms";
 import NewsList from "../components/NewsList.astro";
 import { Image } from "astro:assets";
@@ -27,22 +28,19 @@ const products = await getProducts(3);
           短い緑の季節。 この緑の大地を力強く駆け抜ける。<br>
           この景色の向こう側には何が待っているのだろう。
         </p>
+        <LinkButton href="/about">詳しく見る</LinkButton>
       </div>
 
       <div class="content">
         <h1 class="title">news</h1>
         <NewsList news={news} />
-        <p class="link-button">
-          <a href="/news/page/1">お知らせ一覧を見る</a>
-        </p>
+        <LinkButton href="/news/page/1">お知らせ一覧を見る</LinkButton>
       </div>
 
       <div class="content">
         <h1 class="title">products</h1>
         <ProductList products={products} />
-        <p class="link-button">
-          <a href="/products/page/1">商品一覧を見る</a>
-        </p>
+        <LinkButton href="/products/page/1">商品一覧を見る</LinkButton>
       </div>
 
       <div class="content">
@@ -53,9 +51,7 @@ const products = await getProducts(3);
         <p class="center-description">
           WEBでも不定期で商品を販売しております
         </p>
-        <p class="link-button">
-          <a href="https://amam-plus.com/" target="_blank" rel="noopener noreferrer">WEBSTOREへ行く</a>
-        </p>
+        <LinkButton href="https://amam-plus.com/">WEBSTOREへ行く</LinkButton>
       </div>
 
       <div class="content">
@@ -66,9 +62,7 @@ const products = await getProducts(3);
         <p class="center-description">
           店舗併設のカフェの予約ができます
         </p>
-        <p class="link-button">
-          <a href="https://tol-app.jp/s/amamplus" target="_blank" rel="noopener noreferrer">カフェの予約をする</a>
-        </p>
+        <LinkButton href="https://tol-app.jp/s/amamplus">カフェの予約をする</LinkButton>
       </div>
 
     </div>
@@ -115,20 +109,5 @@ const products = await getProducts(3);
     margin: 0 auto;
     object-fit: cover;
     object-position: 0 57%;
-  }
-
-  .link-button {
-    text-align: center;
-    margin: 5rem 0;
-  }
-
-  .link-button a {
-    border: 1px solid var(--main-fg-color);
-    padding: 0.7rem 4rem;
-    text-decoration: none;
-  }
-
-  .link-button a:hover {
-    opacity: 0.7;
   }
 </style>
