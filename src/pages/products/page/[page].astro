@@ -1,0 +1,98 @@
+---
+import type { PaginateFunction } from "astro";
+import Layout from "../../../layouts/Layout.astro";
+import { getAllProducts } from "../../../microcms";
+import ProductList from "../../../components/ProductList.astro";
+
+export async function getStaticPaths({
+  paginate,
+}: {
+  paginate: PaginateFunction;
+}) {
+  const res = await getAllProducts();
+  return paginate(res, { pageSize: 10 });
+}
+
+const { page } = Astro.props;
+---
+
+<Layout title="products | Sample Web">
+  <main>
+    <h1 class="title">products</h1>
+
+    <ProductList products={page.data} />
+
+    {page.lastPage > 1 && (
+      <nav class="nav-page">
+        <span class="page-link">
+          {page.url.prev ? (
+            <a href={page.url.prev}>&lt; Prev</a>
+          ) : null}
+        </span>
+        <span class="page-number">
+          <span>Page</span>
+          <span>{page.currentPage} of {page.lastPage}</span>
+        </span>
+        <span class="page-link">
+          {page.url.next ? (
+            <a href={page.url.next}>Next &gt;</a>
+          ) : null}
+        </span>
+      </nav>
+    )}
+  </main>
+</Layout>
+
+<style>
+  .nav-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;;
+    height: 2rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+
+  .nav-page > span {
+    margin: auto 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .nav-page > span:nth-child(1) { 
+    width: 5rem;
+    text-align: right;
+  }
+  .nav-page > span:nth-child(3) { 
+    width: 5rem;
+    text-align: left;
+  }
+
+  .nav-page a {
+    height: 100%;
+    font-size: 1.1rem;
+    text-decoration: none;
+  }
+
+  .nav-page a:hover {
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    text-decoration-thickness: 1.2px;
+  }
+
+  .nav-page .page-number > span {
+    display: block;
+    text-align: center;
+  }
+  
+  @media screen and (min-width: 636px) {
+    .nav-page .page-number > span {
+      display: inline;
+    }
+
+    .nav-page {
+      margin-top: 4rem;
+      margin-bottom: 4rem;
+    }
+  }
+
+</style>

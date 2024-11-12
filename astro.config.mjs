@@ -6,6 +6,7 @@ import preload from './src/preload'
 export default defineConfig({
   integrations: [preload()],
   redirects: {
-    '/news': '/news/page/1'
+    '/news': '/news/page/1',
+    '/products': '/products/page/1',
   }
 });

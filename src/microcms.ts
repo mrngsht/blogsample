@@ -71,6 +71,70 @@ export const getNewsPost = async (contentId: string): Promise<NewsPostDetailResp
   return res
 };
 
+export type ProductSummary = {
+  id: string;
+  publishedAt: string;
+  name: string;
+  thumbnail: CmsImage;
+};
+
+export const getProductsPosts = async (limit: number): Promise<ProductSummary[]> => {
+  const res = await client.getList<ProductSummary>({ 
+    endpoint: "products", 
+    queries: {
+      fields: ["id", "publishedAt", "name", "thumbnail"],
+      limit: limit,
+    },
+  });
+  await Promise.all(res.contents.map(async x => {
+    x.thumbnail.url = await preloadImage(x.thumbnail.url)
+  }))
+  return res.contents
+}
+
+export const getAllProducts = async (): Promise<ProductSummary[]> => {
+  const res = await client.getAllContents<ProductSummary>({ 
+    endpoint: "products", 
+    queries: {fields: ["id", "publishedAt", "name", "thumbnail"]},
+  });
+  await Promise.all(res.map(async x => {
+    x.thumbnail.url = await preloadImage(x.thumbnail.url)
+  }))
+  return res
+}
+
+export const getProductIds = async (): Promise<string[]> => {
+  return await client.getAllContentIds({ 
+    endpoint: "products", 
+  });
+}
+
+export type ProductsDetailResponse = {
+  id: string;
+  publishedAt: string;
+  name: string;
+  thumbnail: CmsImage;
+  content: string;
+};
+
+export const getProducts = async (contentId: string): Promise<ProductsDetailResponse> => {
+  const res = await client.getListDetail<ProductsDetailResponse>({
+    endpoint: "products",
+    contentId,
+    queries: {fields: ["id", "publishedAt", "name", "thumbnail", "content"]},
+  });
+  res.thumbnail.url = await preloadImage(res.thumbnail.url)
+  const dom = new JSDOM(res.content)
+  for (const x of dom.window.document.querySelectorAll("img")) {
+     const imgsrc = x.getAttribute("src")
+     if (imgsrc) {
+       x.setAttribute("src",  await preloadImage(imgsrc))
+     }
+  }
+  res.content = dom.serialize()
+  return res
+};
+
 export type AboutResponse = {
   about: string;
 };

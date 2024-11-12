@@ -1,0 +1,101 @@
+
+---
+import { Image } from "astro:assets";
+import { formatDate } from "../util";
+import type { ProductSummary } from "../microcms";
+
+interface Props {
+  products: ProductSummary[];
+}
+
+const { products } = Astro.props;
+---
+<ul class="products-list">
+  {products.map(x => 
+    <li>
+      <a href={"/products/" + x.id}> 
+        <div class="products-thumbnail">
+          <Image
+            src={x.thumbnail.url}
+            alt={x.name}
+            width={x.thumbnail.width}
+            height={x.thumbnail.height}
+          />
+        </div>
+        <div class="products-published-at">{formatDate(new Date(x.publishedAt))}</div>
+        <div class="products-name">{x.name}</div>
+      </a>
+    </li>
+  )}
+</ul>
+
+<style>
+  .products-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    width: 100%;
+    padding: 0;
+  }
+
+  .products-list > li {
+    --thumbnail-height: 300px;
+    --published-at-height: 25px;
+    --name-height: 75px;
+    --gap-from-thumbnail-to-published-at: 20px;
+    --gap-from-published-at-to-name: 5px;
+
+    display: block;
+    list-style-type: none;
+    width: auto;
+    max-width: 100%;
+    height: calc(var(--thumbnail-height) + var(--published-at-height) + var(--name-height) + var(--gap-from-published-at-to-name) + var(--gap-from-thumbnail-to-published-at));
+  }
+
+  .products-list .products-thumbnail {
+    width: 100%;
+    height: var(--thumbnail-height);
+    display: flex;
+    justify-content: left;
+    align-items: center;
+  }
+
+  .products-list .products-thumbnail img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+  }
+
+  .products-list a {
+    text-decoration: none;
+  }
+
+  .products-list a:hover {
+    opacity: 0.7;
+  }
+
+  .products-list .products-published-at {
+    height: var(--published-at-height);
+    margin-top: var(--gap-from-thumbnail-to-published-at);
+    margin-bottom: var(--gap-from-published-at-to-name);
+  }
+
+  .products-list .products-name {
+    overflow: hidden;
+    width: 100%;
+    height: var(--name-height);
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+  }
+
+  @media screen and (min-width: 636px) {
+    .products-list {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+  }
+
+</style>
