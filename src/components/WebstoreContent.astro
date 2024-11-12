@@ -1,0 +1,28 @@
+---
+import webstoreImage from "../images/webstore.webp";
+import LinkButton from "../components/LinkButton.astro";
+import { Image } from "astro:assets";
+---
+
+<p>
+  <Image src={webstoreImage} alt="web store image" />
+</p>
+<p class="center-description">WEBでも不定期で商品を販売しております</p>
+<LinkButton href="https://amam-plus.com/">WEBSTOREへ行く</LinkButton>
+
+<style>
+  .center-description {
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  img {
+    width: 85%;
+    max-width: 600px;
+    height: 400px;
+    display: block;
+    margin: 0 auto;
+    object-fit: cover;
+    object-position: 0 57%;
+  }
+</style>

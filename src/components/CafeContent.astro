@@ -1,0 +1,30 @@
+---
+import cafeImage from "../images/cafe.jpg"
+import LinkButton from "../components/LinkButton.astro";
+import { Image } from "astro:assets";
+---
+
+<p>
+  <Image src={cafeImage} alt="cafe image" />
+</p>
+<p class="center-description">
+  店舗併設のカフェの予約ができます
+</p>
+<LinkButton href="https://tol-app.jp/s/amamplus">カフェの予約をする</LinkButton>
+
+<style>
+  .center-description {
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  img {
+    width: 85%;
+    max-width: 600px;
+    height: 400px;
+    display: block;
+    margin: 0 auto;
+    object-fit: cover;
+    object-position: 0 57%;
+  }
+</style>

@@ -8,6 +8,8 @@ import { Image } from "astro:assets";
 import webstoreImage from "../images/webstore.webp"
 import cafeImage from "../images/cafe.jpg"
 import ProductList from "../components/ProductList.astro";
+import WebstoreContent from "../components/WebstoreContent.astro";
+import CafeContent from "../components/CafeContent.astro";
 
 const news = await getNewsPosts(3);
 const products = await getProducts(3);
@@ -45,24 +47,12 @@ const products = await getProducts(3);
 
       <div class="content">
         <h1 class="title">webstore</h1>
-        <p>
-          <Image src={webstoreImage} alt="web store image" />
-        </p>
-        <p class="center-description">
-          WEBでも不定期で商品を販売しております
-        </p>
-        <LinkButton href="https://amam-plus.com/">WEBSTOREへ行く</LinkButton>
+        <WebstoreContent />
       </div>
 
       <div class="content">
         <h1 class="title">cafe</h1>
-        <p>
-          <Image src={cafeImage} alt="cafe image" />
-        </p>
-        <p class="center-description">
-          店舗併設のカフェの予約ができます
-        </p>
-        <LinkButton href="https://tol-app.jp/s/amamplus">カフェの予約をする</LinkButton>
+        <CafeContent />
       </div>
 
     </div>
@@ -94,20 +84,5 @@ const products = await getProducts(3);
   .content:not(:nth-child(1)) {
     margin-top: 4rem;
     border-top: .1rem solid rgba(18, 18, 18,.08);
-  }
-
-  .content .center-description {
-    text-align: center;
-    margin: 2rem 0;
-  }
-
-  .content img {
-    width: 85%;
-    max-width: 600px;
-    height: 400px;
-    display: block;
-    margin: 0 auto;
-    object-fit: cover;
-    object-position: 0 57%;
   }
 </style>
