@@ -7,7 +7,10 @@ import { Image } from "astro:assets";
 <p>
   <Image src={webstoreImage} alt="web store image" />
 </p>
-<p class="center-description">WEBでも不定期で商品を販売しております</p>
+<p class="center-description">
+  WEBでも商品を販売しております <br>
+  ※現在不定期の販売となっております
+</p>
 <LinkButton href="https://amam-plus.com/">WEBSTOREへ行く</LinkButton>
 
 <style>
@@ -17,12 +20,11 @@ import { Image } from "astro:assets";
   }
 
   img {
-    width: 85%;
-    max-width: 600px;
+    width: 95%;
     height: 400px;
     display: block;
     margin: 0 auto;
     object-fit: cover;
-    object-position: 0 57%;
+    object-position: 0 65%;
   }
 </style>
