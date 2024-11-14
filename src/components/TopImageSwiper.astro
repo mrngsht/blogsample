@@ -1,25 +1,39 @@
 ---
 import { Image } from "astro:assets";
-import { getTopImages } from "../microcms";
-
-const res = await getTopImages();
+import largeImg1 from "../images/top_large_1.jpg"
+import largeImg2 from "../images/top_large_2.webp"
+import largeImg3 from "../images/top_large_3.jpg"
+import largeImg4 from "../images/top_large_4.jpg"
+import largeImg5 from "../images/top_large_5.jpg"
+import smallImg1 from "../images/top_small_1.webp"
+import smallImg2 from "../images/top_small_2.webp"
+import smallImg3 from "../images/top_small_3.webp"
+import smallImg4 from "../images/top_small_4.webp"
+import smallImg5 from "../images/top_small_5.webp"
 ---
 
 <div class="swiper">
   <div class="swiper-wrapper">
-    {
-      res.topImages.map((x) => (
-        <div class="swiper-slide">
-          <Image
-            class="top-image"
-            src={x.url}
-            alt="top image"
-            width={x.width}
-            height={x.height}
-          />
-        </div>
-      ))
-    }
+    <div class="swiper-slide">
+      <Image class="top-image top-image-large" src={largeImg1} alt="top image 1" />
+      <Image class="top-image top-image-small" src={smallImg1} alt="top image 1" />
+    </div>
+    <div class="swiper-slide">
+      <Image class="top-image top-image-large" src={largeImg2} alt="top image 2" />
+      <Image class="top-image top-image-small" src={smallImg2} alt="top image 2" />
+    </div>
+    <div class="swiper-slide">
+      <Image class="top-image top-image-large" src={largeImg3} alt="top image 3" />
+      <Image class="top-image top-image-small" src={smallImg3} alt="top image 3" />
+    </div>
+    <div class="swiper-slide">
+      <Image class="top-image top-image-large" src={largeImg4} alt="top image 4" />
+      <Image class="top-image top-image-small" src={smallImg4} alt="top image 4" />
+    </div>
+    <div class="swiper-slide">
+      <Image class="top-image top-image-large" src={largeImg5} alt="top image 5" />
+      <Image class="top-image top-image-small" src={smallImg5} alt="top image 5" />
+    </div>
   </div>
   <div class="swiper-pagination"></div>
 </div>
@@ -44,6 +58,22 @@ const res = await getTopImages();
     height: 100%;
     object-fit: cover;
     object-position: center;
+  }
+
+  .top-image-large {
+    display: none;
+  }
+  .top-image-small {
+    display: block;
+  }
+
+  @media screen and (min-width: 636px) {
+    .top-image-large {
+      display: block;
+    }
+    .top-image-small {
+      display: none;
+    }
   }
 </style>
 <style is:global>

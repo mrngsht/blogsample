@@ -155,21 +155,6 @@ export const getAbout = async (): Promise<AboutResponse> => {
   return res
 }
 
-export type TopImagesResponse = {
-  topImages: CmsImage[];
-};
-
-export const getTopImages = async (): Promise<TopImagesResponse> => {
-  const res = await client.get<TopImagesResponse>({ 
-    endpoint: "others", 
-    queries: {fields: ["topImages"]},
-  });
-  await Promise.all(res.topImages.map(async x => {
-    x.url = await preloadImage(x.url)
-  }))
-  return res
-}
-
 export type CmsImage = {
   url: string;
   height: number;
