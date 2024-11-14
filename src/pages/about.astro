@@ -5,7 +5,7 @@ import { getAbout } from "../microcms";
 const res = await getAbout();
 ---
 
-<Layout title="about | Sample Web">
+<Layout title="ABOUT">
   <main>
     <h1 class="title">ABOUT</h1>
     <div class="content" set:html={res.about} />

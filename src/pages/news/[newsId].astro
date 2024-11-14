@@ -19,7 +19,7 @@ const { newsId } = Astro.params;
 const news = await getNewsPostDetail(newsId);
 ---
 
-<Layout title="news | Sample Web">
+<Layout title={news.title}>
   <main>
     <h1 class="title">NEWS</h1>
     <div class="news-thumbnail">

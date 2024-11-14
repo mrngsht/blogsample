@@ -18,7 +18,7 @@ const { productsId } = Astro.params;
 const products = await getProductDetail(productsId);
 ---
 
-<Layout title="products | Sample Web">
+<Layout title={products.name}>
   <main>
     <h1 class="title">PRODUCTS</h1>
     <div class="products-thumbnail">

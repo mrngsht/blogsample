@@ -16,7 +16,7 @@ export async function getStaticPaths({
 const { page } = Astro.props;
 ---
 
-<Layout title="news | Sample Web">
+<Layout title={`NEWS - Page.${page.currentPage}`}>
   <main>
     <h1 class="title">NEWS</h1>
 
