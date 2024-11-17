@@ -1,0 +1,27 @@
+---
+const siteName = "AMAM+"
+
+interface Props {
+  title: string;
+  description?: string;
+  ogType?: string;
+  ogImagePath?: string;
+}
+
+const { title } = Astro.props;
+const ogType = Astro.props.ogType ?? 'website';
+const ogImagePath = Astro.props.ogImagePath ?? '/ogp.jpg';
+const description = Astro.props.description ??  "北海道札幌市のAMAM＋（アマムプリュ）菓子店のホームページです。皆さまに、北海道の大自然が育む最高の材料を使ったお菓子をお届けできることを、心より願っております。"
+
+const titleWithSiteName = (title === "" ? siteName : `${title} | ${siteName}`);
+
+---
+<title>{titleWithSiteName}</title>
+<meta name="description" content={description} />
+
+<meta property="og:url" content={new URL(Astro.url.pathname, import.meta.env.AMAM_BASE_URL)}/>
+<meta property="og:site_name" content={siteName}/>
+<meta property="og:type" content={ogType}/>
+<meta property="og:description" content={description}/>
+<meta property="og:title" content={titleWithSiteName}/>
+<meta property="og:image" content={new URL(ogImagePath, import.meta.env.AMAM_BASE_URL)}/>

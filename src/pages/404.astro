@@ -1,19 +1,24 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Metadata from "../components/Metadata.astro";
 ---
 
-<Layout title="PAGE NOT FOUND">
-  <main>
-    <h1 class="title">PAGE NOT FOUND</h1>
-    <p>
-      ページが見つかりません。 <br>
-      お探しのページは、移動または削除された可能性があります。
-    </p>
-  </main>
+<Layout>
+  <Fragment slot="head">
+    <Metadata title="PAGE NOT FOUND" />
+  </Fragment>
+  <Fragment slot="body">
+    <main>
+      <h1 class="title">PAGE NOT FOUND</h1>
+      <p>
+        ページが見つかりません。 <br />
+        お探しのページは、移動または削除された可能性があります。
+      </p>
+    </main>
+  </Fragment>
 </Layout>
 
 <style>
   main {
   }
 </style>
-

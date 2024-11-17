@@ -1,15 +1,21 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getAbout } from "../microcms";
+import Metadata  from "../components/Metadata.astro";
 
 const res = await getAbout();
 ---
 
-<Layout title="ABOUT">
-  <main>
-    <h1 class="title">ABOUT</h1>
-    <div class="content" set:html={res.about} />
-  </main>
+<Layout>
+  <Fragment slot="head">
+    <Metadata title="ABOUT" description="北海道札幌市のAMAM＋（アマムプリュ）菓子店のこだわりや魅力をご紹介します。" />
+  </Fragment>
+  <Fragment slot="body">
+    <main>
+      <h1 class="title">ABOUT</h1>
+      <div class="content" set:html={res.about} />
+    </main>
+  </Fragment>
 </Layout>
 
 <style>

@@ -2,6 +2,8 @@
 import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
 import { getProductIds, getProductDetail } from "../../microcms";
+import Metadata from "../../components/Metadata.astro";
+import { getInnerTextWithEllipsis } from "../../util"
 
 // 詳細記事ページの全パスを取得
 export async function getStaticPaths() {
@@ -15,18 +17,23 @@ export async function getStaticPaths() {
 
 //記事の詳細情報を取得
 const { productsId } = Astro.params;
-const products = await getProductDetail(productsId);
+const product = await getProductDetail(productsId);
 ---
 
-<Layout title={products.name}>
-  <main>
-    <h1 class="title">PRODUCTS</h1>
-    <div class="products-thumbnail">
-      <Image src={products.thumbnail.url} alt={products.name} width={products.thumbnail.width} height={products.thumbnail.height} />
-    </div>
-    <h2 class="products-name">{products.name}</h2>
-    <div class="products-content" set:html={products.content} />
-  </main>
+<Layout>
+  <Fragment slot="head">
+    <Metadata title={product.name} description={getInnerTextWithEllipsis(product.content)} ogType="article" ogImagePath={product.thumbnail.url} />
+  </Fragment>
+  <Fragment slot="body">
+    <main>
+      <h1 class="title">PRODUCTS</h1>
+      <div class="products-thumbnail">
+        <Image src={product.thumbnail.url} alt={product.name} width={product.thumbnail.width} height={product.thumbnail.height} />
+      </div>
+      <h2 class="products-name">{product.name}</h2>
+      <div class="products-content" set:html={product.content} />
+    </main>
+  </Fragment>
 </Layout>
 
 <style>

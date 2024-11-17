@@ -1,13 +1,19 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import WebstoreContent from "../components/WebstoreContent.astro";
+import Metadata  from "../components/Metadata.astro";
 ---
 
-<Layout title="WEBSTORE">
-  <main>
-    <h1 class="title">WEBSTORE</h1>
-    <WebstoreContent />
-  </main>
+<Layout>
+  <Fragment slot="head">
+    <Metadata title="WEBSTORE" description="北海道札幌市のAMAM＋（アマムプリュ）菓子店のWEBSTOREをご案内します。" />
+  </Fragment>
+  <Fragment slot="body">
+    <main>
+      <h1 class="title">WEBSTORE</h1>
+      <WebstoreContent />
+    </main>
+  </Fragment>
 </Layout>
 
 <style>

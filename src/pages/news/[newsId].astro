@@ -3,6 +3,8 @@ import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
 import { getNewsPostIds, getNewsPostDetail } from "../../microcms";
 import { formatDate } from "../../util";
+import Metadata  from "../../components/Metadata.astro";
+import { getInnerTextWithEllipsis } from "../../util"
 
 // 詳細記事ページの全パスを取得
 export async function getStaticPaths() {
@@ -19,16 +21,21 @@ const { newsId } = Astro.params;
 const news = await getNewsPostDetail(newsId);
 ---
 
-<Layout title={news.title}>
-  <main>
-    <h1 class="title">NEWS</h1>
-    <div class="news-thumbnail">
-      <Image src={news.thumbnail.url} alt={news.title} width={news.thumbnail.width} height={news.thumbnail.height} />
-    </div>
-    <p class="news-published-at">{formatDate(new Date(news.publishedAt))}</p>
-    <h2 class="news-title">{news.title}</h2>
-    <div class="news-content" set:html={news.content} />
-  </main>
+<Layout>
+  <Fragment slot="head">
+    <Metadata title={news.title} description={getInnerTextWithEllipsis(news.content)} ogType="article" ogImagePath={news.thumbnail.url} />
+  </Fragment>
+  <Fragment slot="body">
+    <main>
+      <h1 class="title">NEWS</h1>
+      <div class="news-thumbnail">
+        <Image src={news.thumbnail.url} alt={news.title} width={news.thumbnail.width} height={news.thumbnail.height} />
+      </div>
+      <p class="news-published-at">{formatDate(new Date(news.publishedAt))}</p>
+      <h2 class="news-title">{news.title}</h2>
+      <div class="news-content" set:html={news.content} />
+    </main>
+  </Fragment>
 </Layout>
 
 <style>

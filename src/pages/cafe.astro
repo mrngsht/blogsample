@@ -1,13 +1,19 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import CafeContent from "../components/CafeContent.astro";
+import Metadata  from "../components/Metadata.astro";
 ---
 
-<Layout title="CAFE">
-  <main>
-    <h1 class="title">CAFE</h1>
-    <CafeContent />
-  </main>
+<Layout>
+  <Fragment slot="head">
+    <Metadata title="CAFE" description="北海道札幌市のAMAM＋（アマムプリュ）菓子店の店舗併設のカフェについてご案内します。" />
+  </Fragment>
+  <Fragment slot="body">
+    <main>
+      <h1 class="title">CAFE</h1>
+      <CafeContent />
+    </main>
+  </Fragment>
 </Layout>
 
 <style>

@@ -3,6 +3,7 @@ import type { PaginateFunction } from "astro";
 import Layout from "../../../layouts/Layout.astro";
 import { getAllProducts } from "../../../microcms";
 import ProductList from "../../../components/ProductList.astro";
+import Metadata  from "../../../components/Metadata.astro";
 
 export async function getStaticPaths({
   paginate,
@@ -16,31 +17,36 @@ export async function getStaticPaths({
 const { page } = Astro.props;
 ---
 
-<Layout title={`PRODUCTS - Page.${page.currentPage}`}>
-  <main>
-    <h1 class="title">PRODUCTS</h1>
+<Layout>
+  <Fragment slot="head">
+    <Metadata title={`PRODUCTS - Page.${page.currentPage}`} description="北海道札幌市のAMAM＋（アマムプリュ）菓子店の商品をご紹介します。" />
+  </Fragment>
+  <Fragment slot="body">
+    <main>
+      <h1 class="title">PRODUCTS</h1>
 
-    <ProductList products={page.data} />
+      <ProductList products={page.data} />
 
-    {page.lastPage > 1 && (
-      <nav class="nav-page">
-        <span class="page-link">
-          {page.url.prev ? (
-            <a href={page.url.prev}>&lt; Prev</a>
-          ) : null}
-        </span>
-        <span class="page-number">
-          <span>Page</span>
-          <span>{page.currentPage} of {page.lastPage}</span>
-        </span>
-        <span class="page-link">
-          {page.url.next ? (
-            <a href={page.url.next}>Next &gt;</a>
-          ) : null}
-        </span>
-      </nav>
-    )}
-  </main>
+      {page.lastPage > 1 && (
+        <nav class="nav-page">
+          <span class="page-link">
+            {page.url.prev ? (
+              <a href={page.url.prev}>&lt; Prev</a>
+            ) : null}
+          </span>
+          <span class="page-number">
+            <span>Page</span>
+            <span>{page.currentPage} of {page.lastPage}</span>
+          </span>
+          <span class="page-link">
+            {page.url.next ? (
+              <a href={page.url.next}>Next &gt;</a>
+            ) : null}
+          </span>
+        </nav>
+      )}
+    </main>
+  </Fragment>
 </Layout>
 
 <style>
