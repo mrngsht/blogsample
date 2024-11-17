@@ -135,26 +135,6 @@ export const getProductDetail = async (contentId: string): Promise<ProductsDetai
   return res
 };
 
-export type AboutResponse = {
-  about: string;
-};
-
-export const getAbout = async (): Promise<AboutResponse> => {
-  const res = await client.get<AboutResponse>({ 
-    endpoint: "others", 
-    queries: {fields: ["about"]},
-  });
-  const dom = new JSDOM(res.about)
-  for (const x of dom.window.document.querySelectorAll("img")) {
-     const imgsrc = x.getAttribute("src")
-     if (imgsrc) {
-       x.setAttribute("src",  await preloadImage(imgsrc))
-     }
-  }
-  res.about = dom.serialize()
-  return res
-}
-
 export type CmsImage = {
   url: string;
   height: number;
