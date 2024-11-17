@@ -12,5 +12,5 @@ export const getInnerTextWithEllipsis = (html: string): string => {
   const jsdom = new JSDOM();
   const parser = new jsdom.window.DOMParser();
   const fullText = parser.parseFromString(html, "text/html").body.textContent?.trim() ?? "";
-  return fullText.length <= maxLength ? fullText : `${fullText.substring(0, maxLength)}...`;
+  return fullText.length <= maxLength ? fullText : `${fullText.substring(0, maxLength)}…`;
 }
