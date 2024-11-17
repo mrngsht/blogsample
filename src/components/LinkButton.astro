@@ -2,15 +2,21 @@
 
 interface Props {
   href: string;
+  isExternal?: boolean;
 }
 
-const { href } = Astro.props;
+const { href, isExternal } = Astro.props;
 
 ---
 <p class="link-button">
   { href.startsWith("/") ? 
     <a href={href}><slot /></a>:
-    <a href={href} target="_blank" rel="noopener noreferrer"><slot /></a>
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      <slot />
+      { isExternal && 
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+      }
+    </a>
   }
 </p>
 
@@ -29,4 +35,12 @@ const { href } = Astro.props;
 .link-button a:hover {
   opacity: 0.7;
 }
+
+.link-button svg {
+  padding-top: 0.15rem;
+  height: 0.85rem;
+  stroke: rgba(18, 18, 18, 1);
+  stroke-width: 1;
+}
+
 </style>
