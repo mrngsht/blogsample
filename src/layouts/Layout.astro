@@ -12,7 +12,7 @@ const { title, invertHeaderColorOnPageScroll = false } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-  <head>
+  <head prefix="og: https://ogp.me/ns#">
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
@@ -33,6 +33,13 @@ const { title, invertHeaderColorOnPageScroll = false } = Astro.props;
     <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Shippori+Mincho+B1&display=swap" rel="stylesheet">
 
     <title>{title === "" ? "AMAM+" : `${title} | AMAM+`}</title>
+
+    <meta property="og:url" content={new URL(Astro.url.pathname, import.meta.env.AMAM_BASE_URL)}/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content={title === "" ? "AMAM+" : `${title} | AMAM+`}/>
+    <meta property="og:description" content="Astro description"/>
+    <meta property="og:site_name" content="AMAM+"/>
+    <meta property="og:image" content={new URL('/ogp.jpg', import.meta.env.AMAM_BASE_URL)}/>
   </head>
   <body>
     <Header invertColorOnPageScroll={invertHeaderColorOnPageScroll} />
